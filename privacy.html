@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Politique de confidentialité — Forge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #2DD4BF;
+      --violet: #7C3AED;
+      --bg: #0A0A0F;
+      --surface: #13131A;
+      --text: #F0EEF8;
+      --muted: #6B6880;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 { width: 500px; height: 500px; background: var(--teal);   top: -150px; left: -100px; }
+    .blob-2 { width: 400px; height: 400px; background: var(--violet); bottom: -100px; right: -80px; }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--teal); }
+
+    main {
+      position: relative;
+      z-index: 1;
+      padding: 120px 24px 80px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      margin-bottom: 48px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .page-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .policy-box {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 48px;
+      border: 1px solid rgba(255,255,255,0.06);
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    /* iubenda embed styles override */
+    .iubenda-embed {
+      color: var(--text) !important;
+    }
+
+    /* CloudKit addendum */
+    .addendum {
+      margin-top: 40px;
+      padding: 28px 32px;
+      border: 1px solid rgba(45, 212, 191, 0.2);
+      border-radius: 14px;
+      background: rgba(45, 212, 191, 0.04);
+    }
+    .addendum h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      color: var(--teal);
+    }
+    .addendum p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .addendum a {
+      color: var(--teal);
+      text-decoration: none;
+    }
+    .addendum a:hover { text-decoration: underline; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--muted);
+      width: 100%;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .policy-box { padding: 28px 20px; }
+      footer { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <nav>
+    <a href="/" class="nav-logo">Forge</a>
+    <div class="nav-links">
+      <a href="/privacy" class="active">Privacy</a>
+      <a href="/support">Support</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <p class="page-label">Légal</p>
+      <h1>Politique de<br />confidentialité</h1>
+    </div>
+
+    <div class="policy-box">
+      <!-- iubenda Privacy Policy embed -->
+      <a href="https://www.iubenda.com/privacy-policy/78348279"
+         class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe"
+         title="Politique de Confidentialité">
+        Politique de Confidentialité
+      </a>
+      <script type="text/javascript">
+        (function (w,d) {
+          var loader = function () {
+            var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0];
+            s.src = "https://cdn.iubenda.com/iubenda.js";
+            tag.parentNode.insertBefore(s,tag);
+          };
+          if(w.addEventListener){ w.addEventListener("load", loader, false); }
+          else if(w.attachEvent){ w.attachEvent("onload", loader); }
+          else{ w.onload = loader; }
+        })(window, document);
+      </script>
+
+      <div class="addendum">
+        <h2>Stockage des données — Apple CloudKit</h2>
+        <p>
+          Forge utilise exclusivement Apple CloudKit pour le stockage des données. Vos informations (entraînements, nutrition, objectifs) sont stockées sur votre compte iCloud personnel et ne sont jamais accessibles par les développeurs de Forge. Apple Inc. agit en tant que processeur de données conformément à sa <a href="https://www.apple.com/fr/legal/privacy/" target="_blank" rel="noopener">politique de confidentialité</a>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Cookie Policy -->
+    <div class="policy-box" style="margin-top: 24px;">
+      <a href="https://www.iubenda.com/privacy-policy/78348279/cookie-policy"
+         class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe"
+         title="Politique relative aux Cookies">
+        Politique relative aux Cookies
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    <span class="footer-logo">Forge</span>
+    <div class="footer-links">
+      <a href="/privacy">Politique de confidentialité</a>
+      <a href="/support">Support</a>
+    </div>
+    <p class="footer-copy">© 2026 Forge. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>

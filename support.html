@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — Forge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #2DD4BF;
+      --violet: #7C3AED;
+      --coral: #F97316;
+      --bg: #0A0A0F;
+      --surface: #13131A;
+      --text: #F0EEF8;
+      --muted: #6B6880;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 { width: 500px; height: 500px; background: var(--violet); top: -150px; right: -100px; }
+    .blob-2 { width: 400px; height: 400px; background: var(--coral);  bottom: -100px; left: -80px; }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--teal); }
+
+    main {
+      position: relative;
+      z-index: 1;
+      padding: 120px 24px 80px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      margin-bottom: 48px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .page-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+    .page-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* FAQ */
+    .faq {
+      margin-bottom: 40px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .faq-title {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    details {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    details:first-of-type { border-top: 1px solid rgba(255,255,255,0.06); }
+
+    summary {
+      padding: 20px 0;
+      cursor: pointer;
+      font-weight: 400;
+      font-size: 1rem;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      transition: color 0.2s;
+    }
+    summary:hover { color: var(--teal); }
+    summary::after {
+      content: '+';
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: transform 0.2s, color 0.2s;
+    }
+    details[open] summary::after {
+      transform: rotate(45deg);
+      color: var(--teal);
+    }
+    details[open] summary { color: var(--text); }
+
+    .answer {
+      padding: 0 0 24px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* Contact card */
+    .contact-card {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 48px;
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .contact-card h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      letter-spacing: -0.02em;
+    }
+    .contact-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 440px;
+    }
+
+    .email-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      border: 1px solid rgba(45, 212, 191, 0.35);
+      color: var(--teal);
+      border-radius: 12px;
+      padding: 14px 24px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .email-btn:hover {
+      background: rgba(45, 212, 191, 0.08);
+      border-color: var(--teal);
+      transform: translateY(-1px);
+    }
+
+    .response-time {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .response-time::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--teal);
+      border-radius: 50%;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 80px;
+    }
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--muted);
+      width: 100%;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .contact-card { padding: 28px 20px; }
+      footer { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <nav>
+    <a href="/" class="nav-logo">Forge</a>
+    <div class="nav-links">
+      <a href="/privacy">Privacy</a>
+      <a href="/support" class="active">Support</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <p class="page-label">Aide</p>
+      <h1>Support</h1>
+      <p class="page-sub">Une question ? Un bug ? On est là.</p>
+    </div>
+
+    <div class="faq">
+      <p class="faq-title">Questions fréquentes</p>
+
+      <details>
+        <summary>Où sont stockées mes données ?</summary>
+        <p class="answer">Toutes vos données (entraînements, nutrition, objectifs) sont stockées sur votre compte iCloud personnel via Apple CloudKit. Personne d'autre — y compris les développeurs de Forge — n'y a accès.</p>
+      </details>
+
+      <details>
+        <summary>Forge collecte-t-il mes données personnelles ?</summary>
+        <p class="answer">Non. Forge ne collecte, ne transmet et ne vend aucune donnée personnelle à des tiers. Vos données restent sur votre iCloud.</p>
+      </details>
+
+      <details>
+        <summary>Comment synchroniser entre mes appareils Apple ?</summary>
+        <p class="answer">La synchronisation est automatique via iCloud. Assurez-vous d'être connecté avec le même Apple ID sur tous vos appareils et que iCloud Drive est activé dans les réglages.</p>
+      </details>
+
+      <details>
+        <summary>Comment supprimer mes données ?</summary>
+        <p class="answer">Vous pouvez supprimer vos données directement depuis l'application, ou en supprimant Forge et en effaçant les données iCloud associées depuis les réglages iCloud de votre iPhone.</p>
+      </details>
+
+      <details>
+        <summary>L'app est-elle gratuite ?</summary>
+        <p class="answer">Forge est disponible gratuitement avec toutes les fonctionnalités essentielles. Des fonctionnalités premium pourront être proposées à l'avenir via achat intégré.</p>
+      </details>
+    </div>
+
+    <div class="contact-card">
+      <h2>Contacter le support</h2>
+      <p>Vous n'avez pas trouvé la réponse à votre question ? Envoyez-nous un email, nous répondons généralement sous 48h.</p>
+      <a href="mailto:qbobichon@gmail.com?subject=Support Forge" class="email-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        qbobichon@gmail.com
+      </a>
+      <span class="response-time">Réponse sous 48h ouvrées</span>
+    </div>
+  </main>
+
+  <footer>
+    <span class="footer-logo">Forge</span>
+    <div class="footer-links">
+      <a href="/privacy">Politique de confidentialité</a>
+      <a href="/support">Support</a>
+    </div>
+    <p class="footer-copy">© 2026 Forge. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>

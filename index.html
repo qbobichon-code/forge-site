@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forge — Fitness & Nutrition</title>
+  <meta name="description" content="Track your fitness and nutrition with Forge. Simple, powerful, private." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #2DD4BF;
+      --violet: #7C3AED;
+      --coral: #F97316;
+      --bg: #0A0A0F;
+      --surface: #13131A;
+      --text: #F0EEF8;
+      --muted: #6B6880;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── GLOW BLOBS ── */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 { width: 600px; height: 600px; background: var(--teal);   top: -200px; left: -150px; }
+    .blob-2 { width: 500px; height: 500px; background: var(--violet); bottom: -150px; right: -100px; }
+    .blob-3 { width: 300px; height: 300px; background: var(--coral);  top: 40%;  left: 55%; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      border: 1px solid rgba(45, 212, 191, 0.25);
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 40px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--teal);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    h1 em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--teal), var(--violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 52px;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .cta-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .appstore-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--text);
+      color: var(--bg);
+      border-radius: 14px;
+      padding: 14px 28px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 40px rgba(45, 212, 191, 0.15);
+    }
+    .appstore-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(45, 212, 191, 0.3);
+    }
+    .appstore-btn svg { width: 22px; height: 22px; }
+
+    .coming-soon {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      position: relative;
+      z-index: 1;
+      padding: 100px 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2px;
+    }
+
+    .card {
+      background: var(--surface);
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .card:first-child { border-radius: 20px 0 0 0; }
+    .card:nth-child(2) { border-radius: 0 20px 0 0; }
+    .card:nth-child(3) { border-radius: 0 0 0 20px; }
+    .card:last-child { border-radius: 0 0 20px 0; }
+    .card:hover { background: #1a1a24; }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .card:hover::before { opacity: 1; }
+    .card:nth-child(1)::before { background: var(--teal); }
+    .card:nth-child(2)::before { background: var(--violet); }
+    .card:nth-child(3)::before { background: var(--coral); }
+    .card:nth-child(4)::before { background: var(--teal); }
+
+    .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+    .card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--muted);
+      width: 100%;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .nav-links { gap: 20px; }
+      footer { padding: 32px 20px; }
+      .card:first-child  { border-radius: 20px 20px 0 0; }
+      .card:nth-child(2) { border-radius: 0; }
+      .card:nth-child(3) { border-radius: 0; }
+      .card:last-child   { border-radius: 0 0 20px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <nav>
+    <a href="/" class="nav-logo">Forge</a>
+    <div class="nav-links">
+      <a href="/privacy">Privacy</a>
+      <a href="/support">Support</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="eyebrow">iOS App</div>
+    <h1>Build your<br /><em>best self</em></h1>
+    <p class="hero-sub">Fitness and nutrition tracking, beautifully simple. Your data stays yours — stored privately on your iCloud.</p>
+    <div class="cta-group">
+      <a href="#" class="appstore-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Télécharger sur l'App Store
+      </a>
+      <span class="coming-soon">Bientôt disponible</span>
+    </div>
+  </section>
+
+  <section class="features">
+    <p class="section-label">Pourquoi Forge</p>
+    <div class="grid">
+      <div class="card">
+        <div class="card-icon">🏋️</div>
+        <h3>Entraînement</h3>
+        <p>Suivi de vos séances avec surcharge progressive. Visualisez vos progrès semaine après semaine.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🥗</div>
+        <h3>Nutrition</h3>
+        <p>Journalisez vos repas et macros simplement. Adapté aux protocoles keto, OMAD et IF.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔒</div>
+        <h3>100% Privé</h3>
+        <p>Vos données sont stockées sur votre iCloud personnel. Personne d'autre n'y a accès.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">✦</div>
+        <h3>Sans friction</h3>
+        <p>Une interface pensée pour la vitesse. Logguez un repas ou une série en quelques secondes.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-logo">Forge</span>
+    <div class="footer-links">
+      <a href="/privacy">Politique de confidentialité</a>
+      <a href="/support">Support</a>
+    </div>
+    <p class="footer-copy">© 2026 Forge. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>
