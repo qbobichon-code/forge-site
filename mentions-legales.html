@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mentions légales — Forge</title>
+  <meta name="description" content="Mentions légales du site forge-app.eu, édité par NOLEA." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #2DD4BF;
+      --violet: #7C3AED;
+      --coral: #F97316;
+      --bg: #0A0A0F;
+      --surface: #13131A;
+      --text: #F0EEF8;
+      --muted: #6B6880;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 { width: 500px; height: 500px; background: var(--teal);   top: -150px; left: -100px; }
+    .blob-2 { width: 400px; height: 400px; background: var(--violet); bottom: -100px; right: -80px; }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--teal); }
+
+    main {
+      position: relative;
+      z-index: 1;
+      padding: 120px 24px 80px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      margin-bottom: 48px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .page-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .policy-box {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 48px;
+      border: 1px solid rgba(255,255,255,0.06);
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .legal-section { margin-bottom: 36px; }
+    .legal-section:last-child { margin-bottom: 0; }
+    .legal-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+    }
+    .legal-section p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+    .legal-section p + p { margin-top: 12px; }
+
+    dl.legal-list { margin-top: 4px; }
+    dl.legal-list > div {
+      display: flex;
+      gap: 16px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    dl.legal-list > div:last-child { border-bottom: none; }
+    dl.legal-list dt {
+      flex: 0 0 210px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    dl.legal-list dd {
+      flex: 1;
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .legal-section a { color: var(--teal); text-decoration: none; }
+    .legal-section a:hover { text-decoration: underline; }
+
+    .updated {
+      margin-top: 36px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--muted);
+      width: 100%;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .policy-box { padding: 28px 20px; }
+      footer { padding: 32px 20px; }
+      dl.legal-list > div { flex-direction: column; gap: 4px; }
+      dl.legal-list dt { flex: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <nav>
+    <a href="/" class="nav-logo">Forge</a>
+    <div class="nav-links">
+      <a href="/privacy">Privacy</a>
+      <a href="/support">Support</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="page-header">
+      <p class="page-label">Légal</p>
+      <h1>Mentions légales</h1>
+    </div>
+
+    <div class="policy-box">
+
+      <div class="legal-section">
+        <h2>Éditeur du site</h2>
+        <p>Le site <strong>forge-app.eu</strong> et l'application <strong>Forge</strong> sont édités par&nbsp;:</p>
+        <dl class="legal-list">
+          <div><dt>Dénomination sociale</dt><dd>NOLEA</dd></div>
+          <div><dt>Forme juridique</dt><dd>Société par actions simplifiée (SAS)</dd></div>
+          <div><dt>Capital social</dt><dd>100&nbsp;€</dd></div>
+          <div><dt>Siège social</dt><dd>31 rue Georges Clemenceau, 69110 Sainte-Foy-lès-Lyon, France</dd></div>
+          <div><dt>Immatriculation</dt><dd>Société immatriculée au R.C.S. de Lyon — SIREN 954&nbsp;005&nbsp;146</dd></div>
+          <div><dt>SIRET (siège social)</dt><dd>954&nbsp;005&nbsp;146&nbsp;00012</dd></div>
+          <div><dt>N° TVA intracommunautaire</dt><dd>FR89&nbsp;954&nbsp;005&nbsp;146</dd></div>
+          <div><dt>Adresse e-mail</dt><dd><a href="mailto:qbobichon@gmail.com">qbobichon@gmail.com</a></dd></div>
+        </dl>
+      </div>
+
+      <div class="legal-section">
+        <h2>Direction de la publication</h2>
+        <p>Le directeur de la publication est <strong>Quentin Bobichon</strong>, en sa qualité de Président de la société NOLEA.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>Hébergement du site</h2>
+        <p>Le site est hébergé par&nbsp;:</p>
+        <dl class="legal-list">
+          <div><dt>Hébergeur</dt><dd>Vercel Inc.</dd></div>
+          <div><dt>Adresse</dt><dd>340 S Lemon Ave #4133, Walnut, CA 91789, États-Unis</dd></div>
+          <div><dt>Site web</dt><dd><a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a></dd></div>
+        </dl>
+      </div>
+
+      <div class="legal-section">
+        <h2>Nom de domaine</h2>
+        <p>Le nom de domaine <strong>forge-app.eu</strong> est enregistré auprès du bureau d'enregistrement Gandi SAS, 63-65 boulevard Masséna, 75013 Paris, France.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>Propriété intellectuelle</h2>
+        <p>L'ensemble des éléments composant le site et l'application Forge — textes, logos, marque, graphismes, interface et code — sont la propriété exclusive de NOLEA, sauf mention contraire. Toute reproduction, représentation, modification ou exploitation, totale ou partielle, sans l'autorisation écrite préalable de NOLEA, est interdite et constitue une contrefaçon sanctionnée par le Code de la propriété intellectuelle.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>Données personnelles</h2>
+        <p>L'application Forge stocke les données de ses utilisateurs exclusivement sur leur compte iCloud personnel via Apple CloudKit, et ne collecte aucune donnée personnelle à des fins commerciales. Pour le détail du traitement des données, consultez notre <a href="/privacy">Politique de confidentialité</a>.</p>
+      </div>
+
+      <div class="legal-section">
+        <h2>Responsabilité</h2>
+        <p>NOLEA s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur le site, sans pouvoir en garantir l'exhaustivité ni l'absence d'erreurs. L'éditeur ne saurait être tenu responsable des dommages, directs ou indirects, résultant de l'accès au site ou de son utilisation.</p>
+      </div>
+
+      <p class="updated">Dernière mise à jour : mai 2026</p>
+
+    </div>
+  </main>
+
+  <footer>
+    <span class="footer-logo">Forge</span>
+    <div class="footer-links">
+      <a href="/privacy">Politique de confidentialité</a>
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/support">Support</a>
+    </div>
+    <p class="footer-copy">© 2026 Forge — NOLEA. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>
