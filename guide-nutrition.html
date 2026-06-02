@@ -53,8 +53,8 @@ body::before {
 .blob-2 { width: 600px; height: 600px; background: var(--violet); bottom: -200px; right: -160px; }
 .blob-3 { width: 360px; height: 360px; background: var(--coral);  top: 45%; left: 52%; opacity: 0.10; }
 
-/* ── NAV ── */
-nav {
+/* ── NAV (scoped to top-level only — avoids hitting nested <nav class="toc">) ── */
+body > nav {
   position: fixed;
   top: 16px; left: 50%; transform: translateX(-50%);
   width: calc(100% - 48px); max-width: 920px;
