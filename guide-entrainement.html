@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entraînement — Forge</title>
+  <meta name="description" content="Guide complet pour structurer tes entraînements dans Forge — création de routines, séances guidées, suivi photo et récupération musculaire." />
+  <script type="text/javascript" src="https://embeds.iubenda.com/widgets/67d935a7-90cf-4f09-ae6f-78e7a01d5848.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@500&display=swap" rel="stylesheet" />
+  <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cyan:    #00E5C3;
+  --violet:  #8B5CF6;
+  --coral:   #F97316;
+  --bg:      #07090E;
+  --surface: #101820;
+  --sf2:     #172232;
+  --border:  rgba(255,255,255,0.07);
+  --brd2:    rgba(255,255,255,0.13);
+  --text:    #EFF6FF;
+  --muted:   #4A6880;
+  --subtle:  #2A4060;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0;
+}
+
+.blob {
+  position: fixed; border-radius: 50%;
+  filter: blur(140px); opacity: 0.13;
+  pointer-events: none; z-index: 0;
+}
+.blob-1 { width: 700px; height: 700px; background: var(--cyan);   top: -260px; left: -200px; }
+.blob-2 { width: 600px; height: 600px; background: var(--violet); bottom: -200px; right: -160px; }
+.blob-3 { width: 360px; height: 360px; background: var(--coral);  top: 45%; left: 52%; opacity: 0.10; }
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 16px; left: 50%; transform: translateX(-50%);
+  width: calc(100% - 48px); max-width: 920px;
+  z-index: 100;
+  padding: 13px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(7,9,14,0.65);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid var(--brd2);
+  border-radius: 16px;
+}
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.35rem; letter-spacing: -0.02em;
+  color: var(--text); text-decoration: none;
+}
+.nav-right { display: flex; align-items: center; gap: 28px; }
+.nav-links { display: flex; gap: 24px; }
+.nav-links a {
+  color: var(--muted); text-decoration: none;
+  font-size: 0.875rem; font-weight: 400;
+  transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-badge {
+  background: rgba(0,229,195,0.1);
+  border: 1px solid rgba(0,229,195,0.25);
+  color: var(--cyan);
+  font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em;
+  padding: 4px 10px; border-radius: 100px;
+}
+
+/* ── MAIN ── */
+main {
+  position: relative; z-index: 1;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 120px 24px 60px;
+}
+
+/* ── BREADCRUMB ── */
+.breadcrumb {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 40px;
+  animation: fadeUp 0.6s ease both;
+}
+.breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.breadcrumb a:hover { color: var(--cyan); }
+.breadcrumb span.sep { margin: 0 8px; color: var(--subtle); }
+.breadcrumb span.current { color: var(--text); }
+
+/* ── HERO ── */
+.guide-hero {
+  margin-bottom: 80px;
+  animation: fadeUp 0.7s 0.08s ease both;
+}
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--cyan);
+  border: 1px solid rgba(0,229,195,0.2);
+  border-radius: 100px; padding: 6px 14px;
+  margin-bottom: 28px;
+}
+.eyebrow-dot {
+  width: 5px; height: 5px;
+  background: var(--cyan); border-radius: 50%;
+}
+.guide-hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  line-height: 1.05; letter-spacing: -0.025em;
+  margin-bottom: 28px;
+  font-weight: 400;
+}
+.guide-hero h1 em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--violet) 55%, var(--coral) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  padding-right: 0.12em;
+}
+.guide-intro {
+  font-size: 1.06rem;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 660px;
+}
+
+/* ── TABLE OF CONTENTS ── */
+.toc {
+  margin-top: 44px;
+  padding: 22px 26px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.toc-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 14px;
+}
+.toc-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px 24px;
+}
+.toc-list a {
+  display: flex; gap: 10px; align-items: baseline;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.92rem;
+  padding: 4px 0;
+  transition: color 0.2s, transform 0.2s;
+}
+.toc-list a:hover {
+  color: var(--text);
+  transform: translateX(2px);
+}
+.toc-list a span.num {
+  color: var(--cyan);
+  font-weight: 500;
+  font-size: 0.78rem;
+  min-width: 16px;
+}
+
+/* ── STEPS ── */
+.step {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 28px;
+  padding: 36px 0;
+  border-top: 1px solid var(--border);
+  animation: fadeUp 0.6s ease both;
+}
+.step:first-of-type { border-top: none; padding-top: 24px; }
+
+.step-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: transparent;
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  padding-top: 4px;
+}
+
+.step-path {
+  display: inline-flex;
+  align-items: center; gap: 8px;
+  font-family: 'DM Mono', 'SF Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--cyan);
+  background: rgba(0,229,195,0.07);
+  border: 1px solid rgba(0,229,195,0.18);
+  padding: 5px 11px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.step h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.55rem, 2.6vw, 2.05rem);
+  line-height: 1.2; letter-spacing: -0.015em;
+  margin-bottom: 14px;
+  font-weight: 400;
+  color: var(--text);
+}
+.step p {
+  font-size: 0.99rem;
+  color: var(--muted);
+  margin-bottom: 18px;
+  line-height: 1.75;
+}
+.step-list {
+  list-style: none;
+  margin: 18px 0;
+}
+.step-list li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.step-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 11px;
+  width: 14px; height: 1px;
+  background: var(--cyan);
+  opacity: 0.6;
+}
+.step-list li strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ── TIP CARD ── */
+.tip {
+  margin-top: 22px;
+  display: flex; gap: 14px;
+  padding: 16px 20px;
+  background: rgba(0,229,195,0.04);
+  border: 1px solid rgba(0,229,195,0.15);
+  border-radius: 12px;
+}
+.tip-icon {
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  color: var(--cyan);
+  margin-top: 2px;
+}
+.tip-text {
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.85;
+  line-height: 1.65;
+}
+.tip-text strong { color: var(--cyan); font-weight: 500; }
+
+/* ── NOTE / WARNING ── */
+.note {
+  margin-top: 18px;
+  padding: 12px 18px;
+  background: rgba(139,92,246,0.05);
+  border-left: 2px solid var(--violet);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.note strong { color: var(--violet); font-weight: 500; }
+
+/* ── BOTTOM CTA ── */
+.guide-cta {
+  margin-top: 90px;
+  padding: 48px 36px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(0,229,195,0.07), transparent 70%),
+    var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+}
+.guide-cta h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  line-height: 1.15; letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+.guide-cta h2 em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.guide-cta p {
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 460px;
+  margin-left: auto; margin-right: auto;
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center; gap: 10px;
+  background: var(--cyan);
+  color: var(--bg);
+  text-decoration: none;
+  font-weight: 500; font-size: 0.95rem;
+  padding: 13px 24px;
+  border-radius: 12px;
+  transition: transform 0.2s, box-shadow 0.25s;
+  box-shadow: 0 0 30px rgba(0,229,195,0.18);
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 36px rgba(0,229,195,0.32);
+}
+
+/* ── OTHER GUIDES ── */
+.other-guides {
+  margin-top: 72px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+.other-guides-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 20px;
+}
+.other-guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+.other-guides-grid a {
+  display: block;
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.other-guides-grid a:hover {
+  background: rgba(0,229,195,0.05);
+  color: var(--text);
+  border-color: rgba(0,229,195,0.25);
+}
+.other-guides-grid a .og-arrow {
+  float: right;
+  color: var(--cyan);
+  font-weight: 500;
+  transition: transform 0.2s;
+}
+.other-guides-grid a:hover .og-arrow { transform: translateX(3px); }
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 40px 8vw;
+  display: flex; align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.f-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--muted); }
+.f-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.f-links a {
+  color: var(--muted); text-decoration: none;
+  font-size: 0.82rem; transition: color 0.2s;
+}
+.f-links a:hover { color: var(--text); }
+.f-copy { font-size: 0.77rem; color: var(--subtle); width: 100%; text-align: center; margin-top: 8px; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 720px) {
+  main { padding: 110px 20px 40px; }
+  nav { padding: 11px 18px; }
+  .nav-right { gap: 16px; }
+  .nav-links { gap: 16px; }
+  .step { grid-template-columns: 1fr; gap: 14px; padding: 28px 0; }
+  .step-num { font-size: 1.7rem; }
+  footer { padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+  <div class="blob blob-1" aria-hidden="true"></div>
+  <div class="blob blob-2" aria-hidden="true"></div>
+  <div class="blob blob-3" aria-hidden="true"></div>
+
+  <nav>
+    <a href="/" class="nav-logo">Forge</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="/#features">Fonctionnalités</a>
+        <a href="/privacy">Confidentialité</a>
+        <a href="/support">Support</a>
+      </div>
+      <span class="nav-badge">iOS</span>
+    </div>
+  </nav>
+
+  <main>
+    <p class="breadcrumb">
+      <a href="/">Accueil</a>
+      <span class="sep">·</span>
+      <span class="current">Entraînement</span>
+    </p>
+
+    <header class="guide-hero">
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        Guide complet
+      </div>
+      <h1>Entraînement,<br /><em>structuré et progressif.</em></h1>
+      <p class="guide-intro">Forge t'aide à structurer tes séances, suivre tes performances et visualiser ta progression. Création de routines, séances en temps réel, photos avant/après et suivi de récupération musculaire — voici le workflow complet.</p>
+
+    <nav class="toc" aria-label="Sommaire">
+      <span class="toc-label">Dans ce guide</span>
+      <div class="toc-list">
+        <a href="#step-1"><span class="num">01</span>Crée ta première routine</a>
+        <a href="#step-2"><span class="num">02</span>Choisis tes exercices</a>
+        <a href="#step-3"><span class="num">03</span>Personnalise séries, reps, repos et supersets</a>
+        <a href="#step-4"><span class="num">04</span>Lance et déroule ta séance</a>
+        <a href="#step-5"><span class="num">05</span>Coach IA pour la prochaine séance</a>
+        <a href="#step-6"><span class="num">06</span>Documente ta transformation visuellement</a>
+        <a href="#step-7"><span class="num">07</span>Suivi de récupération par groupe musculaire</a>
+      </div>
+    </nav>
+    </header>
+
+    <section class="step" id="step-1">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <div class="step-path">Sport → +</div>
+        <h2>Crée ta première routine</h2>
+        <p>Une routine = un programme d'entraînement réutilisable. Push Day, Jambes lourdes, Full Body — tu nommes, tu structures, tu réutilises.</p>
+        <ul class="step-list">
+          <li>Appuie sur <strong>+</strong> dans l'onglet Sport.</li>
+          <li>Étape 1 — Nomme ta routine (ex. « Push Day », « Jambes lourdes »).</li>
+          <li>Étape 2 — Choisis le <strong>type de séance</strong> (musculation, cardio, hybride…).</li>
+          <li>Étape 3 — Ajoute tes exercices (étape suivante).</li>
+        </ul>
+        <div class="tip">
+          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
+            <circle cx="12" cy="12" r="5"/>
+          </svg>
+          <div class="tip-text">Donne des noms <strong>parlants</strong> à tes routines. « Push Day » est plus clair que « Routine 1 » trois mois plus tard.</div>
+        </div>
+
+      </div>
+    </section>
+    <section class="step" id="step-2">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <div class="step-path">Ajouter des exercices</div>
+        <h2>Choisis tes exercices</h2>
+        <p>Forge embarque un catalogue d'exercices organisé par groupe musculaire. Tu peux aussi créer tes propres exercices personnalisés.</p>
+        <ul class="step-list">
+          <li>Catalogue par <strong>groupe musculaire</strong> : Pectoraux, Dos, Épaules, Bras, Jambes, Abdos, Cardio.</li>
+          <li>Filtre par <strong>équipement disponible</strong> (machine, haltères, barre, poids du corps, élastiques…).</li>
+          <li>Chaque exercice est documenté (description, posture, conseils).</li>
+          <li><strong>« Mes exercices »</strong> : ajoute tes propres exercices pour des mouvements spécifiques.</li>
+        </ul>
+
+
+      </div>
+    </section>
+    <section class="step" id="step-3">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <div class="step-path">Configurer chaque exercice</div>
+        <h2>Personnalise séries, reps, repos et supersets</h2>
+        <p>Chaque exercice se règle finement : nombre de séries, reps cible, poids cible et temps de repos. Tu peux aussi configurer des supersets (bisets) et des séries d'échauffement.</p>
+        <ul class="step-list">
+          <li><strong>Nombre de séries</strong> par exercice.</li>
+          <li><strong>Reps cible</strong> et <strong>poids cible</strong> (ou uniforme, ou variable par série).</li>
+          <li><strong>Temps de repos personnalisé</strong> entre séries (sinon valeur par défaut de la routine).</li>
+          <li><strong>Supersets (bisets)</strong> : enchaîne 2 exercices sans repos en cochant l'option SS.</li>
+          <li><strong>Préchauffe</strong> : ajoute 1 ou 2 séries d'échauffement (poids progressifs) avant les séries de travail.</li>
+        </ul>
+        <div class="tip">
+          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
+            <circle cx="12" cy="12" r="5"/>
+          </svg>
+          <div class="tip-text">Les <strong>supersets</strong> sont parfaits pour gagner du temps sans sacrifier le volume. Idéal sur des groupes antagonistes (biceps + triceps, pectoraux + dos).</div>
+        </div>
+
+      </div>
+    </section>
+    <section class="step" id="step-4">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <div class="step-path">LANCER LA SÉANCE</div>
+        <h2>Lance et déroule ta séance</h2>
+        <p>Une fois la routine prête, tu lances ta séance et Forge te guide en temps réel — exercice par exercice, série par série, avec timer de repos automatique.</p>
+        <ul class="step-list">
+          <li>Bouton <strong>« LANCER LA SÉANCE »</strong> en bas de l'écran routine.</li>
+          <li>Vue séance active : exercice courant en grand, progression x / total exercices.</li>
+          <li>Coche les séries terminées, saisis les <strong>reps réalisées</strong> et le <strong>poids utilisé</strong>.</li>
+          <li><strong>Timer de repos automatique</strong> entre chaque série.</li>
+          <li>Détection auto des <strong>supersets</strong> : passage direct à l'exercice suivant sans repos.</li>
+          <li>Navigation séquentielle ; bouton « Quitter » à tout moment.</li>
+        </ul>
+        <div class="tip">
+          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
+            <circle cx="12" cy="12" r="5"/>
+          </svg>
+          <div class="tip-text">Garde ton iPhone à portée pendant la séance. Mieux encore : utilise l'<strong>Apple Watch</strong> (voir le guide dédié) pour cocher tes séries sans sortir le téléphone entre chaque set.</div>
+        </div>
+
+      </div>
+    </section>
+    <section class="step" id="step-5">
+      <div class="step-num">05</div>
+      <div class="step-content">
+        <div class="step-path">RoutineDetail → Analyser ma progression</div>
+        <h2>Coach IA pour la prochaine séance</h2>
+        <p>Si tu as configuré l'IA, Forge peut analyser ton historique sur une routine donnée et te suggérer les poids, reps et séries optimaux pour la prochaine fois — basé sur tes vrais chiffres, pas une formule générique.</p>
+        <ul class="step-list">
+          <li>Bouton <strong>« Analyser ma progression »</strong> en haut de la routine.</li>
+          <li>L'IA croise ton historique avec les principes de surcharge progressive.</li>
+          <li>Suggestions concrètes : « +2,5 kg sur le pec deck », « passe à 8 reps sur le curl ».</li>
+        </ul>
+
+        <div class="note">Nécessite la <strong>configuration IA</strong> dans Profil. Voir le guide Intelligence Artificielle pour le setup.</div>
+      </div>
+    </section>
+    <section class="step" id="step-6">
+      <div class="step-num">06</div>
+      <div class="step-content">
+        <div class="step-path">Profil → Mensurations → Photos</div>
+        <h2>Documente ta transformation visuellement</h2>
+        <p>La balance et le mètre ne disent pas tout. Les photos avant/après révèlent ce que les chiffres cachent — recomposition corporelle, posture, tonicité.</p>
+        <ul class="step-list">
+          <li>Ajoute des photos depuis ta <strong>galerie</strong> ou directement via la <strong>caméra</strong>.</li>
+          <li><strong>Photos protégées par Face ID / Touch ID</strong> — personne d'autre n'y accède.</li>
+          <li>Note descriptive sur chaque photo (ex. « -3 kg ce mois-ci », « semaine 1 de cut »).</li>
+          <li>Sélectionne <strong>deux photos</strong> pour voir la comparaison AVANT / APRÈS côte à côte.</li>
+          <li>Slider interactif pour faire glisser l'une au-dessus de l'autre.</li>
+        </ul>
+        <div class="tip">
+          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
+            <circle cx="12" cy="12" r="5"/>
+          </svg>
+          <div class="tip-text">Prends une photo <strong>tous les 15 jours</strong>, même angle, même éclairage, même tenue. C'est le seul moyen d'avoir une comparaison honnête.</div>
+        </div>
+
+      </div>
+    </section>
+    <section class="step" id="step-7">
+      <div class="step-num">07</div>
+      <div class="step-content">
+        <div class="step-path">Dashboard → Récupération musculaire</div>
+        <h2>Suivi de récupération par groupe musculaire</h2>
+        <p>Forge calcule automatiquement la fatigue de chaque groupe musculaire en fonction de tes séances récentes — pour éviter le surentraînement et optimiser ta planif.</p>
+        <ul class="step-list">
+          <li><strong>Pourcentage de récupération</strong> par groupe (Pectoraux, Dos, Jambes…).</li>
+          <li>Statuts visuels : <strong>Frais / En récup / Fatigué</strong>.</li>
+          <li>Historique : combien de jours depuis la dernière sollicitation, nombre de séries.</li>
+          <li>Aide à <strong>équilibrer ton volume</strong> sur la semaine et éviter de tabasser le même groupe.</li>
+        </ul>
+        <div class="tip">
+          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
+            <circle cx="12" cy="12" r="5"/>
+          </svg>
+          <div class="tip-text">Si un groupe est encore à 50 % de récupération, c'est probablement <strong>trop tôt</strong> pour le retravailler à haute intensité. Adapte ta routine ou passe sur un autre groupe.</div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="guide-cta">
+      <h2>Construis ta première<br />routine <em>aujourd'hui</em>.</h2>
+      <p>5 minutes pour créer ta routine. Une vie pour la peaufiner.</p>
+      <a href="/" class="cta-btn">
+        Retour à l'accueil
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </section>
+
+    <section class="other-guides">
+      <p class="other-guides-label">Autres guides</p>
+      <div class="other-guides-grid">
+      <a href="/guide-nutrition">Nutrition <span class="og-arrow">→</span></a>
+      <a href="/guide-watch">Apple Watch <span class="og-arrow">→</span></a>
+      <a href="/guide-ia">Intelligence Artificielle <span class="og-arrow">→</span></a>
+      <a href="/guide-privacy">100% Privé <span class="og-arrow">→</span></a>
+      <a href="/guide-sans-friction">Sans Friction <span class="og-arrow">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span class="f-logo">Forge</span>
+    <div class="f-links">
+      <a href="/">Accueil</a>
+      <a href="/privacy">Politique de confidentialité</a>
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/support">Support</a>
+    </div>
+    <p class="f-copy">© 2026 Forge — NOLEA. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>

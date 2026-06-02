@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nutrition — Forge</title>
+  <meta name="description" content="Guide complet pour configurer le suivi nutritionnel de Forge — objectifs, macros, aliments, repas, recettes et planification quotidienne." />
+  <script type="text/javascript" src="https://embeds.iubenda.com/widgets/67d935a7-90cf-4f09-ae6f-78e7a01d5848.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@500&display=swap" rel="stylesheet" />
+  <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cyan:    #00E5C3;
+  --violet:  #8B5CF6;
+  --coral:   #F97316;
+  --bg:      #07090E;
+  --surface: #101820;
+  --sf2:     #172232;
+  --border:  rgba(255,255,255,0.07);
+  --brd2:    rgba(255,255,255,0.13);
+  --text:    #EFF6FF;
+  --muted:   #4A6880;
+  --subtle:  #2A4060;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0;
+}
+
+.blob {
+  position: fixed; border-radius: 50%;
+  filter: blur(140px); opacity: 0.13;
+  pointer-events: none; z-index: 0;
+}
+.blob-1 { width: 700px; height: 700px; background: var(--cyan);   top: -260px; left: -200px; }
+.blob-2 { width: 600px; height: 600px; background: var(--violet); bottom: -200px; right: -160px; }
+.blob-3 { width: 360px; height: 360px; background: var(--coral);  top: 45%; left: 52%; opacity: 0.10; }
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 16px; left: 50%; transform: translateX(-50%);
+  width: calc(100% - 48px); max-width: 920px;
+  z-index: 100;
+  padding: 13px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(7,9,14,0.65);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid var(--brd2);
+  border-radius: 16px;
+}
+.nav-logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.35rem; letter-spacing: -0.02em;
+  color: var(--text); text-decoration: none;
+}
+.nav-right { display: flex; align-items: center; gap: 28px; }
+.nav-links { display: flex; gap: 24px; }
+.nav-links a {
+  color: var(--muted); text-decoration: none;
+  font-size: 0.875rem; font-weight: 400;
+  transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-badge {
+  background: rgba(0,229,195,0.1);
+  border: 1px solid rgba(0,229,195,0.25);
+  color: var(--cyan);
+  font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em;
+  padding: 4px 10px; border-radius: 100px;
+}
+
+/* ── MAIN ── */
+main {
+  position: relative; z-index: 1;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 120px 24px 60px;
+}
+
+/* ── BREADCRUMB ── */
+.breadcrumb {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 40px;
+  animation: fadeUp 0.6s ease both;
+}
+.breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.breadcrumb a:hover { color: var(--cyan); }
+.breadcrumb span.sep { margin: 0 8px; color: var(--subtle); }
+.breadcrumb span.current { color: var(--text); }
+
+/* ── HERO ── */
+.guide-hero {
+  margin-bottom: 80px;
+  animation: fadeUp 0.7s 0.08s ease both;
+}
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--cyan);
+  border: 1px solid rgba(0,229,195,0.2);
+  border-radius: 100px; padding: 6px 14px;
+  margin-bottom: 28px;
+}
+.eyebrow-dot {
+  width: 5px; height: 5px;
+  background: var(--cyan); border-radius: 50%;
+}
+.guide-hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  line-height: 1.05; letter-spacing: -0.025em;
+  margin-bottom: 28px;
+  font-weight: 400;
+}
+.guide-hero h1 em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--violet) 55%, var(--coral) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  padding-right: 0.12em;
+}
+.guide-intro {
+  font-size: 1.06rem;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 660px;
+}
+
+/* ── TABLE OF CONTENTS ── */
+.toc {
+  margin-top: 44px;
+  padding: 22px 26px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.toc-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 14px;
+}
+.toc-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px 24px;
+}
+.toc-list a {
+  display: flex; gap: 10px; align-items: baseline;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.92rem;
+  padding: 4px 0;
+  transition: color 0.2s, transform 0.2s;
+}
+.toc-list a:hover {
+  color: var(--text);
+  transform: translateX(2px);
+}
+.toc-list a span.num {
+  color: var(--cyan);
+  font-weight: 500;
+  font-size: 0.78rem;
+  min-width: 16px;
+}
+
+/* ── STEPS ── */
+.step {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 28px;
+  padding: 36px 0;
+  border-top: 1px solid var(--border);
+  animation: fadeUp 0.6s ease both;
+}
+.step:first-of-type { border-top: none; padding-top: 24px; }
+
+.step-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: transparent;
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  padding-top: 4px;
+}
+
+.step-path {
+  display: inline-flex;
+  align-items: center; gap: 8px;
+  font-family: 'DM Mono', 'SF Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--cyan);
+  background: rgba(0,229,195,0.07);
+  border: 1px solid rgba(0,229,195,0.18);
+  padding: 5px 11px;
+  border-radius: 100px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.step h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.55rem, 2.6vw, 2.05rem);
+  line-height: 1.2; letter-spacing: -0.015em;
+  margin-bottom: 14px;
+  font-weight: 400;
+  color: var(--text);
+}
+.step p {
+  font-size: 0.99rem;
+  color: var(--muted);
+  margin-bottom: 18px;
+  line-height: 1.75;
+}
+.step-list {
+  list-style: none;
+  margin: 18px 0;
+}
+.step-list li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.step-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 11px;
+  width: 14px; height: 1px;
+  background: var(--cyan);
+  opacity: 0.6;
+}
+.step-list li strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ── TIP CARD ── */
+.tip {
+  margin-top: 22px;
+  display: flex; gap: 14px;
+  padding: 16px 20px;
+  background: rgba(0,229,195,0.04);
+  border: 1px solid rgba(0,229,195,0.15);
+  border-radius: 12px;
+}
+.tip-icon {
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  color: var(--cyan);
+  margin-top: 2px;
+}
+.tip-text {
+  font-size: 0.9rem;
+  color: var(--text);
+  opacity: 0.85;
+  line-height: 1.65;
+}
+.tip-text strong { color: var(--cyan); font-weight: 500; }
+
+/* ── NOTE / WARNING ── */
+.note {
+  margin-top: 18px;
+  padding: 12px 18px;
+  background: rgba(139,92,246,0.05);
+  border-left: 2px solid var(--violet);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.note strong { color: var(--violet); font-weight: 500; }
+
+/* ── BOTTOM CTA ── */
+.guide-cta {
+  margin-top: 90px;
+  padding: 48px 36px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(0,229,195,0.07), transparent 70%),
+    var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+}
+.guide-cta h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  line-height: 1.15; letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+.guide-cta h2 em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--cyan), var(--violet));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.guide-cta p {
+  color: var(--muted);
+  font-size: 0.96rem;
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 460px;
+  margin-left: auto; margin-right: auto;
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center; gap: 10px;
+  background: var(--cyan);
+  color: var(--bg);
+  text-decoration: none;
+  font-weight: 500; font-size: 0.95rem;
+  padding: 13px 24px;
+  border-radius: 12px;
+  transition: transform 0.2s, box-shadow 0.25s;
+  box-shadow: 0 0 30px rgba(0,229,195,0.18);
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 36px rgba(0,229,195,0.32);
+}
+
+/* ── OTHER GUIDES ── */
+.other-guides {
+  margin-top: 72px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+.other-guides-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 20px;
+}
+.other-guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+.other-guides-grid a {
+  display: block;
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.other-guides-grid a:hover {
+  background: rgba(0,229,195,0.05);
+  color: var(--text);
+  border-color: rgba(0,229,195,0.25);
+}
+.other-guides-grid a .og-arrow {
+  float: right;
+  color: var(--cyan);
+  font-weight: 500;
+  transition: transform 0.2s;
+}
+.other-guides-grid a:hover .og-arrow { transform: translateX(3px); }
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  padding: 40px 8vw;
+  display: flex; align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.f-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--muted); }
+.f-links { display: flex; gap: 24px; flex-wrap: wrap; }
+.f-links a {
+  color: var(--muted); text-decoration: none;
+  font-size: 0.82rem; transition: color 0.2s;
+}
+.f-links a:hover { color: var(--text); }
+.f-copy { font-size: 0.77rem; color: var(--subtle); width: 100%; text-align: center; margin-top: 8px; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 720px) {
+  main { padding: 110px 20px 40px; }
+  nav { padding: 11px 18px; }
+  .nav-right { gap: 16px; }
+  .nav-links { gap: 16px; }
+  .step { grid-template-columns: 1fr; gap: 14px; padding: 28px 0; }
+  .step-num { font-size: 1.7rem; }
+  footer { padding: 32px 24px; }
+}
+</style>
+</head>
+<body>
+  <div class="blob blob-1" aria-hidden="true"></div>
+  <div class="blob blob-2" aria-hidden="true"></div>
+  <div class="blob blob-3" aria-hidden="true"></div>
+
+  <nav>
+    <a href="/" class="nav-logo">Forge</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="/#features">Fonctionnalités</a>
+        <a href="/privacy">Confidentialité</a>
+        <a href="/support">Support</a>
+      </div>
+      <span class="nav-badge">iOS</span>
+    </div>
+  </nav>
+
+  <main>
+    <p class="breadcrumb">
+      <a href="/">Accueil</a>
+      <span class="sep">·</span>
+      <span class="current">Nutrition</span>
+    </p>
+
+    <header class="guide-hero">
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        Guide complet
+      </div>
+      <h1>Nutrition,<br /><em>au gramme près.</em></h1>
+      <p class="guide-intro">Forge te permet de tracker précisément tes apports avec un système modulaire : tu crées ton catalogue d'aliments, tu composes des repas types, tu enregistres tes recettes — puis tu construis tes journées en quelques secondes. Voici la marche à suivre, de la config initiale à l'usage quotidien.</p>
+
+    <nav class="toc" aria-label="Sommaire">
+      <span class="toc-label">Dans ce guide</span>
+      <div class="toc-list">
+        <a href="#step-1"><span class="num">01</span>Fixe ton objectif de poids</a>
+        <a href="#step-2"><span class="num">02</span>Calibre la répartition de tes macros</a>
+        <a href="#step-3"><span class="num">03</span>Trace ta progression poids</a>
+        <a href="#step-4"><span class="num">04</span>Mesure ce que la balance cache</a>
+        <a href="#step-5"><span class="num">05</span>Construis ton catalogue d'aliments</a>
+        <a href="#step-6"><span class="num">06</span>Compose tes repas types</a>
+        <a href="#step-7"><span class="num">07</span>Enregistre tes recettes maison</a>
+        <a href="#step-8"><span class="num">08</span>Planifie tes journées en 30 secondes</a>
+      </div>
+    </nav>
+    </header>
+
+    <section class="step" id="step-1">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <div class="step-path">Profil → Objectifs</div>
+        <h2>Fixe ton objectif de poids</h2>
+        <p>Première étape : dis à Forge ce que tu vises. Perte de poids, maintien ou prise de masse — l'app calcule automatiquement ton objectif calorique journalier.</p>
+        <ul class="step-list">
+          <li>Renseigne ton <strong>poids actuel</strong> et ton <strong>poids cible</strong>.</li>
+          <li>Choisis le déficit (ou excédent) calorique journalier visé.</li>
+          <li>Forge applique sa formule et te propose une cible kcal/jour personnalisée.</li>
+          <li>Tu peux ajuster manuellement si tu as déjà un coach ou une logique précise.</li>
+        </ul>
+        <div class="tip">
+          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
+            <circle cx="12" cy="12" r="5"/>
+          </svg>
+          <div class="tip-text">Un déficit de <strong>300 à 500 kcal/jour</strong> est l'idéal pour perdre du gras en préservant ta masse musculaire. Au-delà, tu risques de perdre du muscle et de saboter ton métabolisme.</div>
+        </div>
+
+      </div>
+    </section>
+    <section class="step" id="step-2">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <div class="step-path">Profil → Nutrition</div>
+        <h2>Calibre la répartition de tes macros</h2>
+        <p>Une fois l'objectif kcal posé, tu choisis ton style alimentaire et la répartition protéines / glucides / lipides associée. Forge propose des presets prêts à l'emploi, mais tu peux personnaliser librement.</p>
+        <ul class="step-list">
+          <li>Styles disponibles : <strong>Standard, Hyperprotéiné, Low-carb, Keto, OMAD, Intermittent Fasting</strong>.</li>
+          <li>Chaque preset propose une répartition recommandée (%) et un texte d'explication.</li>
+          <li>Curseurs pour ajuster manuellement les pourcentages — Forge recalcule en temps réel.</li>
+          <li>Bouton « Réinitialiser » pour revenir aux recommandations du preset.</li>
+        </ul>
+        <div class="tip">
+          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
+            <circle cx="12" cy="12" r="5"/>
+          </svg>
+          <div class="tip-text">Si tu fais du sport, vise <strong>1,6 à 2,2 g de protéines par kg de poids corporel</strong>. C'est le levier #1 pour préserver le muscle pendant une perte de poids.</div>
+        </div>
+
+      </div>
+    </section>
+    <section class="step" id="step-3">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <div class="step-path">Profil → Poids</div>
+        <h2>Trace ta progression poids</h2>
+        <p>Ajoute une pesée en quelques secondes. Forge calcule automatiquement les variations et te permet de comparer deux dates pour mesurer ton vrai progrès.</p>
+        <ul class="step-list">
+          <li>Appuie sur <strong>+</strong> pour ajouter une nouvelle pesée.</li>
+          <li>Vue chronologique : graphique d'évolution + historique détaillé.</li>
+          <li>Variation hebdo et totale calculée automatiquement.</li>
+          <li>Fonction <strong>« Comparer »</strong> pour mesurer le delta entre deux dates précises.</li>
+        </ul>
+        <div class="tip">
+          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
+            <circle cx="12" cy="12" r="5"/>
+          </svg>
+          <div class="tip-text">Pèse-toi à jeun, <strong>toujours dans les mêmes conditions</strong> (matin, sans vêtements, après être passé aux toilettes). C'est la seule façon d'avoir des chiffres comparables.</div>
+        </div>
+
+      </div>
+    </section>
+    <section class="step" id="step-4">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <div class="step-path">Profil → Mensurations</div>
+        <h2>Mesure ce que la balance cache</h2>
+        <p>Le poids ne dit pas tout — particulièrement quand tu fais une recomposition corporelle (perte de gras + gain de muscle, poids stable). Les mensurations révèlent ce que le pèse-personne ne voit pas.</p>
+        <ul class="step-list">
+          <li>Renseigne tour de taille, hanches, biceps, cuisses… (tout est en cm).</li>
+          <li>Historique chronologique pour chaque métrique.</li>
+          <li>Forge calcule les variations automatiquement.</li>
+          <li>Idéal pour suivre une recomposition corporelle ou une prise de masse propre.</li>
+        </ul>
+        <div class="tip">
+          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
+            <circle cx="12" cy="12" r="5"/>
+          </svg>
+          <div class="tip-text">Mesure-toi <strong>une fois par semaine</strong>, toujours au même moment de la journée, même posture, mètre non-élastique bien serré sans compresser.</div>
+        </div>
+
+      </div>
+    </section>
+    <section class="step" id="step-5">
+      <div class="step-num">05</div>
+      <div class="step-content">
+        <div class="step-path">Nutrition → Aliments</div>
+        <h2>Construis ton catalogue d'aliments</h2>
+        <p>Le cœur de Forge : tu crées ta base d'aliments une fois, tu gagnes du temps à vie. Trois méthodes pour ajouter rapidement un nouvel aliment.</p>
+        <ul class="step-list">
+          <li><strong>Saisie manuelle</strong> : nom, catégorie, valeurs pour 100 g (kcal, P, G, L).</li>
+          <li><strong>Scan code-barres</strong> : récupération automatique depuis Open Food Facts.</li>
+          <li><strong>Photo IA</strong> : tu photographies l'aliment ou l'étiquette, l'IA remplit les macros (nécessite la config IA).</li>
+          <li>Choisis l'unité : <strong>grammes</strong> (par 100 g) ou <strong>pièces</strong> (avec poids par pièce, ex. 60 g pour un œuf moyen).</li>
+          <li>Organise par catégorie (Légumes, Viandes, Féculents, Boissons…) pour une recherche rapide.</li>
+          <li>Possibilité de <strong>partager un aliment</strong> avec des amis Forge.</li>
+        </ul>
+        <div class="tip">
+          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
+            <circle cx="12" cy="12" r="5"/>
+          </svg>
+          <div class="tip-text">Commence par tes <strong>30 aliments les plus utilisés</strong>. C'est le 80/20 du tracking : ces 30 aliments représenteront 90 % de tes saisies futures.</div>
+        </div>
+
+      </div>
+    </section>
+    <section class="step" id="step-6">
+      <div class="step-num">06</div>
+      <div class="step-content">
+        <div class="step-path">Nutrition → Repas</div>
+        <h2>Compose tes repas types</h2>
+        <p>Un repas que tu manges souvent (ton petit-déj, ta lunch-box) ? Sauvegarde-le une fois comme « repas type » et ajoute-le ensuite à n'importe quelle journée en un seul tap.</p>
+        <ul class="step-list">
+          <li>Nomme le repas type (ex. « Petit-déjeuner avoine-banane »).</li>
+          <li>Sélectionne les aliments depuis ton catalogue avec leurs quantités précises.</li>
+          <li>Forge calcule automatiquement les macros totales du repas (P/G/L + kcal).</li>
+          <li>Édite à tout moment pour ajuster un ingrédient ou une quantité.</li>
+          <li>Partage tes repas types avec des amis Forge en un tap.</li>
+        </ul>
+        <div class="tip">
+          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
+            <circle cx="12" cy="12" r="5"/>
+          </svg>
+          <div class="tip-text">Crée tes repas types <strong>après avoir construit ton catalogue d'aliments</strong>. C'est beaucoup plus rapide quand toutes tes briques sont déjà disponibles.</div>
+        </div>
+
+      </div>
+    </section>
+    <section class="step" id="step-7">
+      <div class="step-num">07</div>
+      <div class="step-content">
+        <div class="step-path">Nutrition → Recettes</div>
+        <h2>Enregistre tes recettes maison</h2>
+        <p>Pour des préparations complexes (lasagnes, smoothies, granola, meal preps), crée des recettes : Forge calcule les macros pour la recette entière puis par portion.</p>
+        <ul class="step-list">
+          <li>Ajoute les ingrédients depuis ton catalogue avec leurs quantités exactes.</li>
+          <li>Indique le nombre de portions que produit la recette.</li>
+          <li>Forge te donne les macros par portion ET pour la recette entière.</li>
+          <li>Sauvegarde et réutilise dans le DayPlanner — tu logges la portion, pas tous les ingrédients.</li>
+        </ul>
+        <div class="tip">
+          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
+            <circle cx="12" cy="12" r="5"/>
+          </svg>
+          <div class="tip-text">Idéal pour les <strong>meal preps du dimanche</strong> : tu prépares 5 portions de chili, tu crées la recette une fois, tu logges « 1 portion de chili » les 5 jours suivants.</div>
+        </div>
+
+      </div>
+    </section>
+    <section class="step" id="step-8">
+      <div class="step-num">08</div>
+      <div class="step-content">
+        <div class="step-path">Journée</div>
+        <h2>Planifie tes journées en 30 secondes</h2>
+        <p>Une fois tes briques posées (aliments + repas types + recettes), construire une journée prend littéralement quelques taps. Le planificateur calcule tout en temps réel.</p>
+        <ul class="step-list">
+          <li>Ajoute des aliments, repas types ou recettes au planning du jour.</li>
+          <li>Calcul en temps réel des kcal et macros consommés vs ton objectif.</li>
+          <li>Marque un jour comme <strong>Jour de jeûne</strong> 🌙 — il est compté à 0 kcal dans ta moyenne hebdomadaire.</li>
+          <li>Marque un jour comme <strong>Jour d'entraînement</strong> 🏋️ — objectif calorique ajusté pour la récupération musculaire.</li>
+          <li>Ajoute des suppléments avec quantité (créatine, protéine, oméga 3…).</li>
+          <li>Vue <strong>moyenne hebdomadaire</strong> pour vérifier ta cohérence sur 7 jours.</li>
+          <li><strong>« Analyser ma journée »</strong> (IA) : bilan honnête avec score + ajustements concrets.</li>
+        </ul>
+        <div class="tip">
+          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
+            <circle cx="12" cy="12" r="5"/>
+          </svg>
+          <div class="tip-text">Pré-planifie ta semaine <strong>le dimanche soir</strong>. Tu auras zéro friction le reste de la semaine — et zéro excuse pour te décourager.</div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="guide-cta">
+      <h2>Prêt à commencer<br />ton suivi <em>nutritionnel</em> ?</h2>
+      <p>Télécharge Forge et configure tout en moins de 15 minutes le premier jour.</p>
+      <a href="/" class="cta-btn">
+        Retour à l'accueil
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </section>
+
+    <section class="other-guides">
+      <p class="other-guides-label">Autres guides</p>
+      <div class="other-guides-grid">
+      <a href="/guide-entrainement">Entraînement <span class="og-arrow">→</span></a>
+      <a href="/guide-watch">Apple Watch <span class="og-arrow">→</span></a>
+      <a href="/guide-ia">Intelligence Artificielle <span class="og-arrow">→</span></a>
+      <a href="/guide-privacy">100% Privé <span class="og-arrow">→</span></a>
+      <a href="/guide-sans-friction">Sans Friction <span class="og-arrow">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span class="f-logo">Forge</span>
+    <div class="f-links">
+      <a href="/">Accueil</a>
+      <a href="/privacy">Politique de confidentialité</a>
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/support">Support</a>
+    </div>
+    <p class="f-copy">© 2026 Forge — NOLEA. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>

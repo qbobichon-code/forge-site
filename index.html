@@ -238,6 +238,14 @@
       font-size: clamp(1.9rem, 3.2vw, 3rem);
       letter-spacing: -0.025em; line-height: 1.1;
     }
+    .sec-sub {
+      margin-top: 16px;
+      font-size: 0.92rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin-left: auto; margin-right: auto;
+      line-height: 1.65;
+    }
 
     /* ── BENTO ── */
     .bento {
@@ -252,7 +260,10 @@
       border-radius: 22px; padding: 36px;
       position: relative; overflow: hidden;
       transition: background 0.22s, border-color 0.22s, transform 0.22s;
-      cursor: default;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      cursor: pointer;
     }
     .bc:hover { background: var(--sf2); border-color: var(--brd2); transform: translateY(-2px); }
     .bc::after {
@@ -261,6 +272,25 @@
       opacity: 0; transition: opacity 0.22s;
     }
     .bc:hover::after { opacity: 1; }
+    .bc-arrow {
+      position: absolute;
+      top: 30px; right: 30px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(0,229,195,0.07);
+      border: 1px solid rgba(0,229,195,0.15);
+      color: var(--cyan);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.25s, transform 0.25s, background 0.25s, border-color 0.25s;
+    }
+    .bc-arrow svg { width: 13px; height: 13px; }
+    .bc:hover .bc-arrow {
+      opacity: 1; transform: translateX(0);
+      background: rgba(0,229,195,0.14);
+      border-color: rgba(0,229,195,0.3);
+    }
 
     .bc-train    { grid-column: 1 / 3; }
     .bc-train::after  { background: linear-gradient(90deg, var(--cyan), var(--violet)); }
@@ -455,6 +485,7 @@
     <a href="/" class="nav-logo">Forge</a>
     <div class="nav-right">
       <div class="nav-links">
+        <a href="/#features">Fonctionnalités</a>
         <a href="/privacy">Confidentialité</a>
         <a href="/support">Support</a>
       </div>
@@ -525,15 +556,19 @@
   </section>
 
   <!-- FEATURES -->
-  <section class="section">
+  <section class="section" id="features">
     <div class="sec-header">
       <p class="sec-eye">Fonctionnalités</p>
       <h2 class="sec-title">Tout ce qu'il faut.<br />Rien de superflu.</h2>
+      <p class="sec-sub">Cliquez sur une fonctionnalité pour découvrir comment la configurer pas à pas.</p>
     </div>
     <div class="bento">
 
       <!-- Nutrition (wide) -->
-      <div class="bc bc-train">
+      <a class="bc bc-train" href="/guide-nutrition">
+        <span class="bc-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
         <div class="bc-icon ic-coral">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M2 2a26.6 26.6 0 0 1 10 20c.9-6.82 1.5-9.5 4-14"/>
@@ -542,10 +577,13 @@
         </div>
         <h3>Nutrition</h3>
         <p>Macros et journalisation simplifiés. Keto, OMAD, IF — adapté à votre protocole.</p>
-      </div>
+      </a>
 
       <!-- Privacy (tall) -->
-      <div class="bc bc-priv">
+      <a class="bc bc-priv" href="/guide-privacy">
+        <span class="bc-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
         <div class="bc-icon ic-cyan">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -560,10 +598,13 @@
           </svg>
           Chiffré · iCloud CloudKit
         </div>
-      </div>
+      </a>
 
       <!-- Entraînement (small) -->
-      <div class="bc bc-nutr">
+      <a class="bc bc-nutr" href="/guide-entrainement">
+        <span class="bc-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
         <div class="bc-icon ic-cyan">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M6 4v16M18 4v16M2 8h4M18 8h4M2 16h4M18 16h4M6 12h12"/>
@@ -571,10 +612,13 @@
         </div>
         <h3>Entraînement</h3>
         <p>Suivi de vos séances avec surcharge progressive. Planifiez vos routines, visualisez vos progrès semaine après semaine.</p>
-      </div>
+      </a>
 
       <!-- Watch -->
-      <div class="bc bc-watch">
+      <a class="bc bc-watch" href="/guide-watch">
+        <span class="bc-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
         <div class="bc-icon ic-violet">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="5" y="2" width="14" height="20" rx="7"/>
@@ -584,10 +628,13 @@
         </div>
         <h3>Apple Watch</h3>
         <p>Sync automatique. Vos données directement au poignet.</p>
-      </div>
+      </a>
 
       <!-- AI -->
-      <div class="bc bc-ai">
+      <a class="bc bc-ai" href="/guide-ia">
+        <span class="bc-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
         <div class="bc-icon ic-violet">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z"/>
@@ -602,10 +649,13 @@
           <span class="ai-tag at-2">Lecture d'étiquettes</span>
           <span class="ai-tag at-3">Suggestions repas</span>
         </div>
-      </div>
+      </a>
 
       <!-- Friction-free -->
-      <div class="bc bc-fast">
+      <a class="bc bc-fast" href="/guide-sans-friction">
+        <span class="bc-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
         <div class="bc-icon ic-coral">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
@@ -613,7 +663,7 @@
         </div>
         <h3>Sans friction</h3>
         <p>Interface pensée pour la vitesse. Logguer un repas ou une série en quelques secondes.</p>
-      </div>
+      </a>
 
     </div>
   </section>
