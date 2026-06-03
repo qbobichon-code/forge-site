@@ -268,8 +268,8 @@ main {
   font-weight: 500;
 }
 
-/* ── STEP VIDEO ── */
-.step-video {
+/* ── STEP MEDIA (video + image) ── */
+.step-video, .step-image {
   margin-top: 26px;
   max-width: 320px;
   border-radius: 18px;
@@ -279,6 +279,10 @@ main {
   box-shadow: 0 18px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,229,195,0.06) inset;
   position: relative;
 }
+.step-image { max-width: 400px; }
+.step-image img { width: 100%; height: auto; display: block; border-radius: 18px; }
+.step-image-label { /* same baseline as step-video-label, declared below */ }
+.step-video {
 .step-video::before {
   content: '';
   position: absolute; inset: 0;
@@ -293,7 +297,7 @@ main {
   background: #000;
   border-radius: 18px;
 }
-.step-video-label {
+.step-video-label, .step-image-label {
   display: inline-flex;
   align-items: center; gap: 8px;
   font-size: 0.7rem;
@@ -303,7 +307,7 @@ main {
   margin: 16px 0 10px;
   font-weight: 500;
 }
-.step-video-label::before {
+.step-video-label::before, .step-image-label::before {
   content: '';
   width: 5px; height: 5px;
   background: var(--cyan);
@@ -542,6 +546,10 @@ footer {
         </div>
 
 
+        <p class="step-image-label">Visuel</p>
+        <div class="step-image">
+          <img src="/images/watch/installation.png" alt="App Watch sur iPhone avec le bouton INSTALLER à côté de Forge" loading="lazy" />
+        </div>
       </div>
     </section>
     <section class="step" id="step-2">
@@ -559,6 +567,10 @@ footer {
 
 
 
+        <p class="step-image-label">Visuel</p>
+        <div class="step-image">
+          <img src="/images/watch/1.png" alt="Apple Watch affichant l'anneau de calories Forge et les macros du jour" loading="lazy" />
+        </div>
       </div>
     </section>
     <section class="step" id="step-3">
@@ -582,6 +594,10 @@ footer {
         </div>
 
 
+        <p class="step-image-label">Visuel</p>
+        <div class="step-image">
+          <img src="/images/watch/2.png" alt="Apple Watch Forge synchronisée avec l'iPhone" loading="lazy" />
+        </div>
       </div>
     </section>
     <section class="step" id="step-4">
@@ -607,6 +623,10 @@ footer {
         </div>
 
 
+        <p class="step-image-label">Visuel</p>
+        <div class="step-image">
+          <img src="/images/watch/3.png" alt="Séance Forge affichée en miroir sur l'Apple Watch pendant un entraînement" loading="lazy" />
+        </div>
       </div>
     </section>
     <section class="step" id="step-5">
@@ -621,6 +641,7 @@ footer {
           <li>Tape une routine pour la lancer depuis la Watch.</li>
           <li>Compteur de séances par routine (combien de fois tu l'as faite).</li>
         </ul>
+
 
 
 
