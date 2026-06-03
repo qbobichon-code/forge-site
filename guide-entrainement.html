@@ -268,6 +268,48 @@ main {
   font-weight: 500;
 }
 
+/* ── STEP VIDEO ── */
+.step-video {
+  margin-top: 26px;
+  max-width: 320px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #000;
+  box-shadow: 0 18px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,229,195,0.06) inset;
+  position: relative;
+}
+.step-video::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 18px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset;
+  pointer-events: none;
+}
+.step-video video {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #000;
+  border-radius: 18px;
+}
+.step-video-label {
+  display: inline-flex;
+  align-items: center; gap: 8px;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin: 16px 0 10px;
+  font-weight: 500;
+}
+.step-video-label::before {
+  content: '';
+  width: 5px; height: 5px;
+  background: var(--cyan);
+  border-radius: 50%;
+}
+
 /* ── TIP CARD ── */
 .tip {
   margin-top: 22px;
@@ -501,6 +543,7 @@ footer {
           <div class="tip-text">Donne des noms <strong>parlants</strong> à tes routines. « Push Day » est plus clair que « Routine 1 » trois mois plus tard.</div>
         </div>
 
+
       </div>
     </section>
     <section class="step" id="step-2">
@@ -515,6 +558,7 @@ footer {
           <li>Chaque exercice est documenté (description, posture, conseils).</li>
           <li><strong>« Mes exercices »</strong> : ajoute tes propres exercices pour des mouvements spécifiques.</li>
         </ul>
+
 
 
       </div>
@@ -540,6 +584,7 @@ footer {
           <div class="tip-text">Les <strong>supersets</strong> sont parfaits pour gagner du temps sans sacrifier le volume. Idéal sur des groupes antagonistes (biceps + triceps, pectoraux + dos).</div>
         </div>
 
+
       </div>
     </section>
     <section class="step" id="step-4">
@@ -564,6 +609,7 @@ footer {
           <div class="tip-text">Garde ton iPhone à portée pendant la séance. Mieux encore : utilise l'<strong>Apple Watch</strong> (voir le guide dédié) pour cocher tes séries sans sortir le téléphone entre chaque set.</div>
         </div>
 
+
       </div>
     </section>
     <section class="step" id="step-5">
@@ -579,6 +625,7 @@ footer {
         </ul>
 
         <div class="note">Nécessite la <strong>configuration IA</strong> dans Profil. Voir le guide Intelligence Artificielle pour le setup.</div>
+
       </div>
     </section>
     <section class="step" id="step-6">
@@ -602,6 +649,7 @@ footer {
           <div class="tip-text">Prends une photo <strong>tous les 15 jours</strong>, même angle, même éclairage, même tenue. C'est le seul moyen d'avoir une comparaison honnête.</div>
         </div>
 
+
       </div>
     </section>
     <section class="step" id="step-7">
@@ -623,6 +671,7 @@ footer {
           </svg>
           <div class="tip-text">Si un groupe est encore à 50 % de récupération, c'est probablement <strong>trop tôt</strong> pour le retravailler à haute intensité. Adapte ta routine ou passe sur un autre groupe.</div>
         </div>
+
 
       </div>
     </section>

@@ -268,6 +268,48 @@ main {
   font-weight: 500;
 }
 
+/* ── STEP VIDEO ── */
+.step-video {
+  margin-top: 26px;
+  max-width: 320px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #000;
+  box-shadow: 0 18px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,229,195,0.06) inset;
+  position: relative;
+}
+.step-video::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 18px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset;
+  pointer-events: none;
+}
+.step-video video {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #000;
+  border-radius: 18px;
+}
+.step-video-label {
+  display: inline-flex;
+  align-items: center; gap: 8px;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin: 16px 0 10px;
+  font-weight: 500;
+}
+.step-video-label::before {
+  content: '';
+  width: 5px; height: 5px;
+  background: var(--cyan);
+  border-radius: 50%;
+}
+
 /* ── TIP CARD ── */
 .tip {
   margin-top: 22px;
@@ -500,6 +542,7 @@ footer {
           <div class="tip-text">Si tu as <strong>l'IA configurée</strong>, l'étape catalogue se fait à la vitesse de la lumière : tu prends en photo chaque aliment et l'IA fait le reste.</div>
         </div>
 
+
       </div>
     </section>
     <section class="step" id="step-2">
@@ -521,6 +564,7 @@ footer {
           </svg>
           <div class="tip-text">Vise le <strong>80/20</strong> : 5 repas types couvrent souvent 80 % de tes journées. Pas besoin d'être exhaustif au début.</div>
         </div>
+
 
       </div>
     </section>
@@ -545,6 +589,7 @@ footer {
           <div class="tip-text">Pré-planifie ta semaine <strong>le dimanche soir</strong>. Tu auras zéro friction le reste de la semaine.</div>
         </div>
 
+
       </div>
     </section>
     <section class="step" id="step-4">
@@ -561,6 +606,7 @@ footer {
         </ul>
 
         <div class="note">Voir le <strong>guide Intelligence Artificielle</strong> pour la config détaillée.</div>
+
       </div>
     </section>
     <section class="step" id="step-5">
@@ -574,6 +620,7 @@ footer {
           <li><strong>iPad / Mac</strong> : même Apple ID = mêmes données partout, automatiquement.</li>
           <li><strong>Apple Santé</strong> : sync bidirectionnelle (séances, poids, macros) si tu l'actives dans Profil → Santé.</li>
         </ul>
+
 
 
       </div>
@@ -597,6 +644,7 @@ footer {
           </svg>
           <div class="tip-text">Le jour où tu sens que « tracker prend trop de temps », c'est que tu n'as pas fini ton catalogue. Investis 10 min de plus à compléter, ça paiera pour les 30 jours suivants.</div>
         </div>
+
 
       </div>
     </section>

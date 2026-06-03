@@ -268,6 +268,48 @@ main {
   font-weight: 500;
 }
 
+/* ── STEP VIDEO ── */
+.step-video {
+  margin-top: 26px;
+  max-width: 320px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #000;
+  box-shadow: 0 18px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,229,195,0.06) inset;
+  position: relative;
+}
+.step-video::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 18px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset;
+  pointer-events: none;
+}
+.step-video video {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #000;
+  border-radius: 18px;
+}
+.step-video-label {
+  display: inline-flex;
+  align-items: center; gap: 8px;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin: 16px 0 10px;
+  font-weight: 500;
+}
+.step-video-label::before {
+  content: '';
+  width: 5px; height: 5px;
+  background: var(--cyan);
+  border-radius: 50%;
+}
+
 /* ── TIP CARD ── */
 .tip {
   margin-top: 22px;
@@ -502,6 +544,13 @@ footer {
           <div class="tip-text">Un déficit de <strong>300 à 500 kcal/jour</strong> est l'idéal pour perdre du gras en préservant ta masse musculaire. Au-delà, tu risques de perdre du muscle et de saboter ton métabolisme.</div>
         </div>
 
+        <p class="step-video-label">Démo vidéo</p>
+        <div class="step-video">
+          <video controls preload="metadata" playsinline poster="">
+            <source src="/videos/nutrition/1.mp4" type="video/mp4" />
+            Votre navigateur ne supporte pas la lecture vidéo.
+          </video>
+        </div>
       </div>
     </section>
     <section class="step" id="step-2">
@@ -524,6 +573,13 @@ footer {
           <div class="tip-text">Si tu fais du sport, vise <strong>1,6 à 2,2 g de protéines par kg de poids corporel</strong>. C'est le levier #1 pour préserver le muscle pendant une perte de poids.</div>
         </div>
 
+        <p class="step-video-label">Démo vidéo</p>
+        <div class="step-video">
+          <video controls preload="metadata" playsinline poster="">
+            <source src="/videos/nutrition/2.mp4" type="video/mp4" />
+            Votre navigateur ne supporte pas la lecture vidéo.
+          </video>
+        </div>
       </div>
     </section>
     <section class="step" id="step-3">
@@ -546,6 +602,13 @@ footer {
           <div class="tip-text">Pèse-toi à jeun, <strong>toujours dans les mêmes conditions</strong> (matin, sans vêtements, après être passé aux toilettes). C'est la seule façon d'avoir des chiffres comparables.</div>
         </div>
 
+        <p class="step-video-label">Démo vidéo</p>
+        <div class="step-video">
+          <video controls preload="metadata" playsinline poster="">
+            <source src="/videos/nutrition/3.mp4" type="video/mp4" />
+            Votre navigateur ne supporte pas la lecture vidéo.
+          </video>
+        </div>
       </div>
     </section>
     <section class="step" id="step-4">
@@ -568,6 +631,13 @@ footer {
           <div class="tip-text">Mesure-toi <strong>une fois par semaine</strong>, toujours au même moment de la journée, même posture, mètre non-élastique bien serré sans compresser.</div>
         </div>
 
+        <p class="step-video-label">Démo vidéo</p>
+        <div class="step-video">
+          <video controls preload="metadata" playsinline poster="">
+            <source src="/videos/nutrition/4.mp4" type="video/mp4" />
+            Votre navigateur ne supporte pas la lecture vidéo.
+          </video>
+        </div>
       </div>
     </section>
     <section class="step" id="step-5">
@@ -592,6 +662,13 @@ footer {
           <div class="tip-text">Commence par tes <strong>30 aliments les plus utilisés</strong>. C'est le 80/20 du tracking : ces 30 aliments représenteront 90 % de tes saisies futures.</div>
         </div>
 
+        <p class="step-video-label">Démo vidéo</p>
+        <div class="step-video">
+          <video controls preload="metadata" playsinline poster="">
+            <source src="/videos/nutrition/5.mp4" type="video/mp4" />
+            Votre navigateur ne supporte pas la lecture vidéo.
+          </video>
+        </div>
       </div>
     </section>
     <section class="step" id="step-6">
@@ -615,6 +692,13 @@ footer {
           <div class="tip-text">Crée tes repas types <strong>après avoir construit ton catalogue d'aliments</strong>. C'est beaucoup plus rapide quand toutes tes briques sont déjà disponibles.</div>
         </div>
 
+        <p class="step-video-label">Démo vidéo</p>
+        <div class="step-video">
+          <video controls preload="metadata" playsinline poster="">
+            <source src="/videos/nutrition/6.mp4" type="video/mp4" />
+            Votre navigateur ne supporte pas la lecture vidéo.
+          </video>
+        </div>
       </div>
     </section>
     <section class="step" id="step-7">
@@ -637,6 +721,13 @@ footer {
           <div class="tip-text">Idéal pour les <strong>meal preps du dimanche</strong> : tu prépares 5 portions de chili, tu crées la recette une fois, tu logges « 1 portion de chili » les 5 jours suivants.</div>
         </div>
 
+        <p class="step-video-label">Démo vidéo</p>
+        <div class="step-video">
+          <video controls preload="metadata" playsinline poster="">
+            <source src="/videos/nutrition/7.mp4" type="video/mp4" />
+            Votre navigateur ne supporte pas la lecture vidéo.
+          </video>
+        </div>
       </div>
     </section>
     <section class="step" id="step-8">
@@ -662,6 +753,13 @@ footer {
           <div class="tip-text">Pré-planifie ta semaine <strong>le dimanche soir</strong>. Tu auras zéro friction le reste de la semaine — et zéro excuse pour te décourager.</div>
         </div>
 
+        <p class="step-video-label">Démo vidéo</p>
+        <div class="step-video">
+          <video controls preload="metadata" playsinline poster="">
+            <source src="/videos/nutrition/8.mp4" type="video/mp4" />
+            Votre navigateur ne supporte pas la lecture vidéo.
+          </video>
+        </div>
       </div>
     </section>
 

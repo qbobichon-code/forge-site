@@ -268,6 +268,48 @@ main {
   font-weight: 500;
 }
 
+/* ── STEP VIDEO ── */
+.step-video {
+  margin-top: 26px;
+  max-width: 320px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #000;
+  box-shadow: 0 18px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,229,195,0.06) inset;
+  position: relative;
+}
+.step-video::before {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: 18px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset;
+  pointer-events: none;
+}
+.step-video video {
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #000;
+  border-radius: 18px;
+}
+.step-video-label {
+  display: inline-flex;
+  align-items: center; gap: 8px;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin: 16px 0 10px;
+  font-weight: 500;
+}
+.step-video-label::before {
+  content: '';
+  width: 5px; height: 5px;
+  background: var(--cyan);
+  border-radius: 50%;
+}
+
 /* ── TIP CARD ── */
 .tip {
   margin-top: 22px;
@@ -503,6 +545,7 @@ footer {
           <div class="tip-text">Ta clé est stockée dans le <strong>Trousseau d'accès Apple (Keychain)</strong> chiffré, jamais transmise à nos serveurs. On n'a même pas la possibilité d'y accéder.</div>
         </div>
         <div class="note">OpenAI te facture à l'usage : environ <strong>0,02 à 0,05 € par photo analysée</strong>. Plafonne ton budget mensuel directement sur platform.openai.com pour rester sous contrôle.</div>
+
       </div>
     </section>
     <section class="step" id="step-2">
@@ -517,6 +560,7 @@ footer {
           <li>OFF → aucun bouton IA visible. L'app fonctionne 100 % manuellement.</li>
           <li>Aucune requête OpenAI tant que le toggle est OFF, même par erreur.</li>
         </ul>
+
 
 
       </div>
@@ -542,6 +586,7 @@ footer {
           <div class="tip-text">Précision <strong>variable selon les plats</strong>. Toujours vérifier les chiffres avant de valider — l'IA est un assistant, pas une vérité absolue.</div>
         </div>
 
+
       </div>
     </section>
     <section class="step" id="step-4">
@@ -563,6 +608,7 @@ footer {
           </svg>
           <div class="tip-text">Pour le scan <strong>code-barres</strong> (différent), Forge utilise Open Food Facts directement, sans IA et sans frais.</div>
         </div>
+
 
       </div>
     </section>
@@ -586,6 +632,7 @@ footer {
           <div class="tip-text">Utilise-le <strong>le soir</strong> pour préparer ta journée du lendemain en t'appuyant sur les ajustements suggérés.</div>
         </div>
 
+
       </div>
     </section>
     <section class="step" id="step-6">
@@ -608,6 +655,7 @@ footer {
           <div class="tip-text">Plus tu fais la même routine, plus les suggestions sont précises. Forge a besoin d'au moins <strong>3-4 occurrences</strong> pour analyser correctement ta tendance.</div>
         </div>
 
+
       </div>
     </section>
     <section class="step" id="step-7">
@@ -623,6 +671,7 @@ footer {
           <li>Tu peux <strong>supprimer ta clé</strong> à tout moment depuis Profil → IA → Supprimer la clé.</li>
           <li>Sans clé, aucune requête OpenAI n'est faite, point.</li>
         </ul>
+
 
 
       </div>
