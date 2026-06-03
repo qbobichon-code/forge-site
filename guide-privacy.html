@@ -268,8 +268,8 @@ main {
   font-weight: 500;
 }
 
-/* ── STEP VIDEO ── */
-.step-video {
+/* ── STEP MEDIA (video + image) ── */
+.step-video, .step-image {
   margin-top: 26px;
   max-width: 320px;
   border-radius: 18px;
@@ -279,6 +279,10 @@ main {
   box-shadow: 0 18px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,229,195,0.06) inset;
   position: relative;
 }
+.step-image { max-width: 400px; }
+.step-image img { width: 100%; height: auto; display: block; border-radius: 18px; }
+.step-image-label { /* same baseline as step-video-label, declared below */ }
+.step-video {
 .step-video::before {
   content: '';
   position: absolute; inset: 0;
@@ -293,7 +297,7 @@ main {
   background: #000;
   border-radius: 18px;
 }
-.step-video-label {
+.step-video-label, .step-image-label {
   display: inline-flex;
   align-items: center; gap: 8px;
   font-size: 0.7rem;
@@ -303,7 +307,7 @@ main {
   margin: 16px 0 10px;
   font-weight: 500;
 }
-.step-video-label::before {
+.step-video-label::before, .step-image-label::before {
   content: '';
   width: 5px; height: 5px;
   background: var(--cyan);
@@ -313,23 +317,23 @@ main {
 /* ── TIP CARD ── */
 .tip {
   margin-top: 22px;
-  display: flex; gap: 14px;
-  padding: 16px 20px;
+  padding: 14px 20px 14px 18px;
   background: rgba(0,229,195,0.04);
   border: 1px solid rgba(0,229,195,0.15);
-  border-radius: 12px;
-}
-.tip-icon {
-  flex-shrink: 0;
-  width: 20px; height: 20px;
-  color: var(--cyan);
-  margin-top: 2px;
+  border-left: 3px solid var(--cyan);
+  border-radius: 4px 12px 12px 4px;
 }
 .tip-text {
   font-size: 0.9rem;
   color: var(--text);
-  opacity: 0.85;
+  opacity: 0.88;
   line-height: 1.65;
+}
+.tip-text::before {
+  content: 'Astuce — ';
+  color: var(--cyan);
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 .tip-text strong { color: var(--cyan); font-weight: 500; }
 
@@ -538,6 +542,7 @@ footer {
 
 
 
+
       </div>
     </section>
     <section class="step" id="step-2">
@@ -552,6 +557,7 @@ footer {
           <li>Pas de serveur propriétaire = pas de risque de fuite de notre côté.</li>
           <li>Si Forge disparaissait demain, tes données resteraient dans <strong>ton iCloud</strong>.</li>
         </ul>
+
 
 
 
@@ -572,6 +578,7 @@ footer {
 
 
 
+
       </div>
     </section>
     <section class="step" id="step-4">
@@ -589,6 +596,7 @@ footer {
 
 
 
+
       </div>
     </section>
     <section class="step" id="step-5">
@@ -602,6 +610,7 @@ footer {
           <li><strong>iPhone ↔ iPad ↔ Mac</strong> via iCloud si tu as plusieurs appareils.</li>
           <li>Aucun setup : connecté avec le même Apple ID = mêmes données partout.</li>
         </ul>
+
 
 
 
@@ -622,6 +631,7 @@ footer {
 
 
 
+
       </div>
     </section>
     <section class="step" id="step-7">
@@ -638,12 +648,9 @@ footer {
           <li>Révocation à tout moment dans Réglages → Confidentialité → Santé.</li>
         </ul>
         <div class="tip">
-          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
-            <circle cx="12" cy="12" r="5"/>
-          </svg>
           <div class="tip-text">Si tu utilises déjà Apple Santé comme hub central de tes données fitness, active la sync pour <strong>centraliser tout au même endroit</strong>.</div>
         </div>
+
 
 
       </div>

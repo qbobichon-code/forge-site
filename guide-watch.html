@@ -317,23 +317,23 @@ main {
 /* ── TIP CARD ── */
 .tip {
   margin-top: 22px;
-  display: flex; gap: 14px;
-  padding: 16px 20px;
+  padding: 14px 20px 14px 18px;
   background: rgba(0,229,195,0.04);
   border: 1px solid rgba(0,229,195,0.15);
-  border-radius: 12px;
-}
-.tip-icon {
-  flex-shrink: 0;
-  width: 20px; height: 20px;
-  color: var(--cyan);
-  margin-top: 2px;
+  border-left: 3px solid var(--cyan);
+  border-radius: 4px 12px 12px 4px;
 }
 .tip-text {
   font-size: 0.9rem;
   color: var(--text);
-  opacity: 0.85;
+  opacity: 0.88;
   line-height: 1.65;
+}
+.tip-text::before {
+  content: 'Astuce — ';
+  color: var(--cyan);
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 .tip-text strong { color: var(--cyan); font-weight: 500; }
 
@@ -538,10 +538,6 @@ footer {
           <li>L'app apparaît sur ta Watch dans les secondes qui suivent.</li>
         </ul>
         <div class="tip">
-          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
-            <circle cx="12" cy="12" r="5"/>
-          </svg>
           <div class="tip-text">Si tu as activé l'<strong>installation automatique</strong> dans les réglages Watch, Forge s'installe seul dès que tu l'ouvres sur ton iPhone — rien à faire.</div>
         </div>
 
@@ -586,10 +582,6 @@ footer {
           <li>Cache local sur la Watch pour les démarrages à froid (la dernière vue connue s'affiche en attendant).</li>
         </ul>
         <div class="tip">
-          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
-            <circle cx="12" cy="12" r="5"/>
-          </svg>
           <div class="tip-text">Si la sync ne se fait pas, vérifie que <strong>ton iPhone et ta Watch utilisent le même Apple ID</strong> et que les deux ont du réseau ou Bluetooth actif.</div>
         </div>
 
@@ -615,10 +607,6 @@ footer {
           <li>Plus besoin de sortir l'iPhone entre chaque série.</li>
         </ul>
         <div class="tip">
-          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
-            <circle cx="12" cy="12" r="5"/>
-          </svg>
           <div class="tip-text">Idéal pour les <strong>séances en salle</strong> : tu poses l'iPhone dans ton sac, tu pilotes tout depuis le poignet.</div>
         </div>
 

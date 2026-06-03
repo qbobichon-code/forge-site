@@ -268,8 +268,8 @@ main {
   font-weight: 500;
 }
 
-/* ── STEP VIDEO ── */
-.step-video {
+/* ── STEP MEDIA (video + image) ── */
+.step-video, .step-image {
   margin-top: 26px;
   max-width: 320px;
   border-radius: 18px;
@@ -279,6 +279,10 @@ main {
   box-shadow: 0 18px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,229,195,0.06) inset;
   position: relative;
 }
+.step-image { max-width: 400px; }
+.step-image img { width: 100%; height: auto; display: block; border-radius: 18px; }
+.step-image-label { /* same baseline as step-video-label, declared below */ }
+.step-video {
 .step-video::before {
   content: '';
   position: absolute; inset: 0;
@@ -293,7 +297,7 @@ main {
   background: #000;
   border-radius: 18px;
 }
-.step-video-label {
+.step-video-label, .step-image-label {
   display: inline-flex;
   align-items: center; gap: 8px;
   font-size: 0.7rem;
@@ -303,7 +307,7 @@ main {
   margin: 16px 0 10px;
   font-weight: 500;
 }
-.step-video-label::before {
+.step-video-label::before, .step-image-label::before {
   content: '';
   width: 5px; height: 5px;
   background: var(--cyan);
@@ -313,23 +317,23 @@ main {
 /* ── TIP CARD ── */
 .tip {
   margin-top: 22px;
-  display: flex; gap: 14px;
-  padding: 16px 20px;
+  padding: 14px 20px 14px 18px;
   background: rgba(0,229,195,0.04);
   border: 1px solid rgba(0,229,195,0.15);
-  border-radius: 12px;
-}
-.tip-icon {
-  flex-shrink: 0;
-  width: 20px; height: 20px;
-  color: var(--cyan);
-  margin-top: 2px;
+  border-left: 3px solid var(--cyan);
+  border-radius: 4px 12px 12px 4px;
 }
 .tip-text {
   font-size: 0.9rem;
   color: var(--text);
-  opacity: 0.85;
+  opacity: 0.88;
   line-height: 1.65;
+}
+.tip-text::before {
+  content: 'Astuce — ';
+  color: var(--cyan);
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 .tip-text strong { color: var(--cyan); font-weight: 500; }
 
@@ -535,12 +539,9 @@ footer {
           <li>C'est tout. Le reste se construit au fil de l'eau, sans effort.</li>
         </ul>
         <div class="tip">
-          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
-            <circle cx="12" cy="12" r="5"/>
-          </svg>
           <div class="tip-text">Si tu as <strong>l'IA configurée</strong>, l'étape catalogue se fait à la vitesse de la lumière : tu prends en photo chaque aliment et l'IA fait le reste.</div>
         </div>
+
 
 
       </div>
@@ -558,12 +559,9 @@ footer {
           <li>Mode "meal prep" : crée des <strong>recettes</strong> pour les préparations multi-portions (chili, granola, soupes).</li>
         </ul>
         <div class="tip">
-          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
-            <circle cx="12" cy="12" r="5"/>
-          </svg>
           <div class="tip-text">Vise le <strong>80/20</strong> : 5 repas types couvrent souvent 80 % de tes journées. Pas besoin d'être exhaustif au début.</div>
         </div>
+
 
 
       </div>
@@ -582,12 +580,9 @@ footer {
           <li>Vue <strong>moyenne hebdomadaire</strong> pour vérifier ta cohérence sans rentrer dans le détail quotidien.</li>
         </ul>
         <div class="tip">
-          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
-            <circle cx="12" cy="12" r="5"/>
-          </svg>
           <div class="tip-text">Pré-planifie ta semaine <strong>le dimanche soir</strong>. Tu auras zéro friction le reste de la semaine.</div>
         </div>
+
 
 
       </div>
@@ -607,6 +602,7 @@ footer {
 
         <div class="note">Voir le <strong>guide Intelligence Artificielle</strong> pour la config détaillée.</div>
 
+
       </div>
     </section>
     <section class="step" id="step-5">
@@ -620,6 +616,7 @@ footer {
           <li><strong>iPad / Mac</strong> : même Apple ID = mêmes données partout, automatiquement.</li>
           <li><strong>Apple Santé</strong> : sync bidirectionnelle (séances, poids, macros) si tu l'actives dans Profil → Santé.</li>
         </ul>
+
 
 
 
@@ -638,12 +635,9 @@ footer {
           <li>Tu te concentres sur ce qui compte : <strong>tes résultats</strong>, pas la saisie.</li>
         </ul>
         <div class="tip">
-          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
-            <circle cx="12" cy="12" r="5"/>
-          </svg>
           <div class="tip-text">Le jour où tu sens que « tracker prend trop de temps », c'est que tu n'as pas fini ton catalogue. Investis 10 min de plus à compléter, ça paiera pour les 30 jours suivants.</div>
         </div>
+
 
 
       </div>

@@ -268,8 +268,8 @@ main {
   font-weight: 500;
 }
 
-/* ── STEP VIDEO ── */
-.step-video {
+/* ── STEP MEDIA (video + image) ── */
+.step-video, .step-image {
   margin-top: 26px;
   max-width: 320px;
   border-radius: 18px;
@@ -279,6 +279,10 @@ main {
   box-shadow: 0 18px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,229,195,0.06) inset;
   position: relative;
 }
+.step-image { max-width: 400px; }
+.step-image img { width: 100%; height: auto; display: block; border-radius: 18px; }
+.step-image-label { /* same baseline as step-video-label, declared below */ }
+.step-video {
 .step-video::before {
   content: '';
   position: absolute; inset: 0;
@@ -293,7 +297,7 @@ main {
   background: #000;
   border-radius: 18px;
 }
-.step-video-label {
+.step-video-label, .step-image-label {
   display: inline-flex;
   align-items: center; gap: 8px;
   font-size: 0.7rem;
@@ -303,7 +307,7 @@ main {
   margin: 16px 0 10px;
   font-weight: 500;
 }
-.step-video-label::before {
+.step-video-label::before, .step-image-label::before {
   content: '';
   width: 5px; height: 5px;
   background: var(--cyan);
@@ -313,23 +317,23 @@ main {
 /* ── TIP CARD ── */
 .tip {
   margin-top: 22px;
-  display: flex; gap: 14px;
-  padding: 16px 20px;
+  padding: 14px 20px 14px 18px;
   background: rgba(0,229,195,0.04);
   border: 1px solid rgba(0,229,195,0.15);
-  border-radius: 12px;
-}
-.tip-icon {
-  flex-shrink: 0;
-  width: 20px; height: 20px;
-  color: var(--cyan);
-  margin-top: 2px;
+  border-left: 3px solid var(--cyan);
+  border-radius: 4px 12px 12px 4px;
 }
 .tip-text {
   font-size: 0.9rem;
   color: var(--text);
-  opacity: 0.85;
+  opacity: 0.88;
   line-height: 1.65;
+}
+.tip-text::before {
+  content: 'Astuce — ';
+  color: var(--cyan);
+  font-weight: 500;
+  letter-spacing: 0.02em;
 }
 .tip-text strong { color: var(--cyan); font-weight: 500; }
 
@@ -538,13 +542,10 @@ footer {
           <li>Statut affiché : <strong>Active · GPT-4o-mini</strong>.</li>
         </ul>
         <div class="tip">
-          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
-            <circle cx="12" cy="12" r="5"/>
-          </svg>
           <div class="tip-text">Ta clé est stockée dans le <strong>Trousseau d'accès Apple (Keychain)</strong> chiffré, jamais transmise à nos serveurs. On n'a même pas la possibilité d'y accéder.</div>
         </div>
         <div class="note">OpenAI te facture à l'usage : environ <strong>0,02 à 0,05 € par photo analysée</strong>. Plafonne ton budget mensuel directement sur platform.openai.com pour rester sous contrôle.</div>
+
 
       </div>
     </section>
@@ -560,6 +561,7 @@ footer {
           <li>OFF → aucun bouton IA visible. L'app fonctionne 100 % manuellement.</li>
           <li>Aucune requête OpenAI tant que le toggle est OFF, même par erreur.</li>
         </ul>
+
 
 
 
@@ -579,12 +581,9 @@ footer {
           <li>Tu peux <strong>ajuster manuellement</strong> avant de sauvegarder.</li>
         </ul>
         <div class="tip">
-          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
-            <circle cx="12" cy="12" r="5"/>
-          </svg>
           <div class="tip-text">Précision <strong>variable selon les plats</strong>. Toujours vérifier les chiffres avant de valider — l'IA est un assistant, pas une vérité absolue.</div>
         </div>
+
 
 
       </div>
@@ -602,12 +601,9 @@ footer {
           <li>Idéal pour les produits exotiques, locaux, ou non référencés.</li>
         </ul>
         <div class="tip">
-          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
-            <circle cx="12" cy="12" r="5"/>
-          </svg>
           <div class="tip-text">Pour le scan <strong>code-barres</strong> (différent), Forge utilise Open Food Facts directement, sans IA et sans frais.</div>
         </div>
+
 
 
       </div>
@@ -625,12 +621,9 @@ footer {
           <li>Re-analysable à tout moment si tu modifies ta journée.</li>
         </ul>
         <div class="tip">
-          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
-            <circle cx="12" cy="12" r="5"/>
-          </svg>
           <div class="tip-text">Utilise-le <strong>le soir</strong> pour préparer ta journée du lendemain en t'appuyant sur les ajustements suggérés.</div>
         </div>
+
 
 
       </div>
@@ -648,12 +641,9 @@ footer {
           <li>Basé sur tes <strong>vrais chiffres</strong>, pas une formule générique.</li>
         </ul>
         <div class="tip">
-          <svg class="tip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M12 22v-2M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41"/>
-            <circle cx="12" cy="12" r="5"/>
-          </svg>
           <div class="tip-text">Plus tu fais la même routine, plus les suggestions sont précises. Forge a besoin d'au moins <strong>3-4 occurrences</strong> pour analyser correctement ta tendance.</div>
         </div>
+
 
 
       </div>
@@ -671,6 +661,7 @@ footer {
           <li>Tu peux <strong>supprimer ta clé</strong> à tout moment depuis Profil → IA → Supprimer la clé.</li>
           <li>Sans clé, aucune requête OpenAI n'est faite, point.</li>
         </ul>
+
 
 
 
