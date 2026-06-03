@@ -282,6 +282,21 @@ main {
 .step-image { max-width: 400px; }
 .step-image img { width: 100%; height: auto; display: block; border-radius: 18px; }
 .step-image-label { /* same baseline as step-video-label, declared below */ }
+/* Transparent variant — no card frame, image floats with shadow + cyan glow */
+.step-image.is-transparent {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  max-width: 320px;
+  overflow: visible;
+}
+.step-image.is-transparent::before { display: none; }
+.step-image.is-transparent img {
+  border-radius: 0;
+  filter:
+    drop-shadow(0 22px 32px rgba(0,0,0,0.55))
+    drop-shadow(0 0 60px rgba(0,229,195,0.18));
+}
 .step-video {
 .step-video::before {
   content: '';
@@ -564,7 +579,7 @@ footer {
 
 
         <p class="step-image-label">Visuel</p>
-        <div class="step-image">
+        <div class="step-image is-transparent">
           <img src="/images/watch/1.png" alt="Apple Watch affichant l'anneau de calories Forge et les macros du jour" loading="lazy" />
         </div>
       </div>
@@ -587,7 +602,7 @@ footer {
 
 
         <p class="step-image-label">Visuel</p>
-        <div class="step-image">
+        <div class="step-image is-transparent">
           <img src="/images/watch/2.png" alt="Apple Watch Forge synchronisée avec l'iPhone" loading="lazy" />
         </div>
       </div>
@@ -612,7 +627,7 @@ footer {
 
 
         <p class="step-image-label">Visuel</p>
-        <div class="step-image">
+        <div class="step-image is-transparent">
           <img src="/images/watch/3.png" alt="Séance Forge affichée en miroir sur l'Apple Watch pendant un entraînement" loading="lazy" />
         </div>
       </div>
