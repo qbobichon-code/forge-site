@@ -97,10 +97,19 @@ nav {
       letter-spacing: -0.03em; line-height: 1;
     }
 
-    .policy-box {
-      padding: 0;
+    .policy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
       animation: fadeUp 0.7s 0.1s ease both;
       margin-bottom: 48px;
+    }
+    .policy-box {
+      padding: 0;
+    }
+    @media (max-width: 640px) {
+      .policy-grid { grid-template-columns: 1fr; gap: 32px; }
     }
 
     /* iubenda embed override */
@@ -194,46 +203,48 @@ nav {
       <h1>Politique de<br />confidentialité</h1>
     </div>
 
-    <div class="policy-box">
-      <a href="https://www.iubenda.com/privacy-policy/78348279"
-         class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe"
-         title="Politique de Confidentialité">
-        Politique de Confidentialité
-      </a>
-      <script type="text/javascript">
-        (function (w,d) {
-          var loader = function () {
-            var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0];
-            s.src = "https://cdn.iubenda.com/iubenda.js";
-            tag.parentNode.insertBefore(s,tag);
-          };
-          if(w.addEventListener){ w.addEventListener("load", loader, false); }
-          else if(w.attachEvent){ w.attachEvent("onload", loader); }
-          else{ w.onload = loader; }
-        })(window, document);
-      </script>
-
-      <div class="addendum">
-        <div class="addendum-top">
-          <div class="addendum-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-          </div>
-          <h2>Stockage des données — Apple CloudKit</h2>
-        </div>
-        <p>
-          Forge utilise exclusivement Apple CloudKit pour le stockage des données. Vos informations (entraînements, nutrition, objectifs) sont stockées sur votre compte iCloud personnel et ne sont jamais accessibles par les développeurs de Forge. Apple Inc. agit en tant que processeur de données conformément à sa <a href="https://www.apple.com/fr/legal/privacy/" target="_blank" rel="noopener">politique de confidentialité</a>.
-        </p>
+    <div class="policy-grid">
+      <div class="policy-box">
+        <a href="https://www.iubenda.com/privacy-policy/78348279/cookie-policy"
+           class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe"
+           title="Politique relative aux Cookies">
+          Politique relative aux Cookies
+        </a>
       </div>
-    </div>
 
-    <div class="policy-box">
-      <a href="https://www.iubenda.com/privacy-policy/78348279/cookie-policy"
-         class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe"
-         title="Politique relative aux Cookies">
-        Politique relative aux Cookies
-      </a>
+      <div class="policy-box">
+        <a href="https://www.iubenda.com/privacy-policy/78348279"
+           class="iubenda-white iubenda-noiframe iubenda-embed iubenda-noiframe"
+           title="Politique de Confidentialité">
+          Politique de Confidentialité
+        </a>
+        <script type="text/javascript">
+          (function (w,d) {
+            var loader = function () {
+              var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0];
+              s.src = "https://cdn.iubenda.com/iubenda.js";
+              tag.parentNode.insertBefore(s,tag);
+            };
+            if(w.addEventListener){ w.addEventListener("load", loader, false); }
+            else if(w.attachEvent){ w.attachEvent("onload", loader); }
+            else{ w.onload = loader; }
+          })(window, document);
+        </script>
+
+        <div class="addendum">
+          <div class="addendum-top">
+            <div class="addendum-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <h2>Stockage des données — Apple CloudKit</h2>
+          </div>
+          <p>
+            Forge utilise exclusivement Apple CloudKit pour le stockage des données. Vos informations (entraînements, nutrition, objectifs) sont stockées sur votre compte iCloud personnel et ne sont jamais accessibles par les développeurs de Forge. Apple Inc. agit en tant que processeur de données conformément à sa <a href="https://www.apple.com/fr/legal/privacy/" target="_blank" rel="noopener">politique de confidentialité</a>.
+          </p>
+        </div>
+      </div>
     </div>
   </main>
 
