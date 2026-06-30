@@ -352,16 +352,18 @@
       max-width: 1100px; margin: 0 auto;
       padding: 56px 40px 100px;
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
+      gap: 0;
     }
     .feat {
       padding: 40px 36px;
       border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
       text-decoration: none; color: inherit;
       display: block;
       transition: background 0.2s; cursor: pointer;
     }
-    .feat:last-child { border-right: none; }
+    .feat:nth-child(3n)   { border-right: none; }
+    .feat:nth-child(n+4)  { border-bottom: none; }
     .feat:hover { background: rgba(255,255,255,0.02); }
 
     .feat-icon {
@@ -389,55 +391,6 @@
     }
     .feat-link svg { width: 12px; height: 12px; }
     .feat:hover .feat-link { opacity: 1; transform: translateX(0); }
-
-    /* ── ALL FEATURES BENTO (below main 3) ── */
-    .more-features {
-      position: relative; z-index: 1;
-      max-width: 1100px; margin: 0 auto;
-      padding: 0 40px 100px;
-    }
-    .mf-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-    .mf-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px; padding: 32px;
-      text-decoration: none; color: inherit;
-      display: flex; flex-direction: column;
-      transition: border-color 0.2s, background 0.2s;
-      cursor: pointer;
-      position: relative; overflow: hidden;
-    }
-    .mf-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent-c, var(--mint)), transparent);
-      opacity: 0; transition: opacity 0.25s;
-    }
-    .mf-card:hover { border-color: var(--brd2); background: var(--sf2); }
-    .mf-card:hover::before { opacity: 1; }
-
-    .mf-icon {
-      width: 40px; height: 40px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 18px; flex-shrink: 0;
-    }
-    .mf-icon svg { width: 19px; height: 19px; }
-    .mf-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; letter-spacing: -0.02em; margin-bottom: 8px; }
-    .mf-card p  { font-size: 0.865rem; color: var(--muted); line-height: 1.7; }
-    .mf-arrow {
-      position: absolute; top: 24px; right: 24px;
-      width: 26px; height: 26px; border-radius: 50%;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted); opacity: 0;
-      transform: translateX(-4px); transition: opacity 0.22s, transform 0.22s;
-    }
-    .mf-arrow svg { width: 11px; height: 11px; }
-    .mf-card:hover .mf-arrow { opacity: 1; transform: translateX(0); }
 
     /* AI chips */
     .ai-chips { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 16px; }
@@ -546,9 +499,8 @@
       .features { grid-template-columns: 1fr; }
       .feat { border-right: none; border-bottom: 1px solid var(--border); padding: 32px 24px; }
       .feat:last-child { border-bottom: none; }
-      .mf-grid { grid-template-columns: 1fr; }
       .privacy-inner { grid-template-columns: 1fr; gap: 44px; padding: 40px 32px; }
-      .divider, .features, .more-features, .privacy, .cta { padding-left: 20px; padding-right: 20px; }
+      .divider, .features, .privacy, .cta { padding-left: 20px; padding-right: 20px; }
       footer { padding: 28px 20px; }
       .phone-wrap { display: none; }
     }
@@ -754,71 +706,64 @@
       </span>
     </a>
 
-  </div>
 
-  <!-- MORE FEATURES — 2x2 bento -->
-  <div class="more-features">
-    <div class="mf-grid">
+    <a class="feat" href="/guide-watch">
+      <div class="feat-icon fi-violet">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="5" y="2" width="14" height="20" rx="7"/>
+          <path d="M5 9h14M5 15h14"/>
+        </svg>
+      </div>
+      <div class="feat-title">Apple Watch</div>
+      <p>Sync automatique. Vos données fitness directement au poignet, en temps réel.</p>
+      <span class="feat-link">
+        Voir le guide
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </span>
+    </a>
 
-      <a class="mf-card" href="/guide-watch" style="--accent-c: #9B6FFF">
-        <span class="mf-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </span>
-        <div class="mf-icon fi-violet">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="5" y="2" width="14" height="20" rx="7"/>
-            <path d="M5 9h14M5 15h14"/>
-          </svg>
-        </div>
-        <h3>Apple Watch</h3>
-        <p>Sync automatique. Vos données fitness directement au poignet, en temps réel.</p>
-      </a>
+    <a class="feat" href="/guide-sans-friction">
+      <div class="feat-icon fi-blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+      </div>
+      <div class="feat-title">Sans friction</div>
+      <p>Interface pensée pour la vitesse. Logguer un repas ou une série en quelques secondes.</p>
+      <span class="feat-link">
+        Voir le guide
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </span>
+    </a>
 
-      <a class="mf-card" href="/guide-sans-friction" style="--accent-c: #60A5FA">
-        <span class="mf-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </span>
-        <div class="mf-icon fi-blue">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-          </svg>
-        </div>
-        <h3>Sans friction</h3>
-        <p>Interface pensée pour la vitesse. Logguer un repas ou une série en quelques secondes.</p>
-      </a>
+    <a class="feat" href="/guide-privacy">
+      <div class="feat-icon fi-mint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <div class="feat-title">100% Privé</div>
+      <p>Données stockées sur votre iCloud uniquement. Zéro serveur tiers, zéro tracking.</p>
+      <span class="feat-link">
+        Voir le guide
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </span>
+    </a>
 
-      <a class="mf-card" href="/guide-privacy" style="--accent-c: var(--mint)">
-        <span class="mf-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </span>
-        <div class="mf-icon fi-mint">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
-        </div>
-        <h3>100% Privé</h3>
-        <p>Données stockées sur votre iCloud uniquement. Zéro serveur tiers, zéro tracking.</p>
-      </a>
+    <a class="feat" href="/guide-ia">
+      <div class="feat-icon fi-violet">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+        </svg>
+      </div>
+      <div class="feat-title">Analyse IA de repas</div>
+      <p>GPT-4o Vision identifie et calcule les macros d'une photo en quelques secondes.</p>
+      <span class="feat-link">
+        Voir le guide
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </span>
+    </a>
 
-      <a class="mf-card" href="/guide-ia" style="--accent-c: #9B6FFF">
-        <span class="mf-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </span>
-        <div class="mf-icon fi-violet">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
-          </svg>
-        </div>
-        <h3>Analyse IA de repas</h3>
-        <p>GPT-4o Vision identifie et calcule les macros d'une photo en quelques secondes.</p>
-        <div class="ai-chips">
-          <span class="ai-chip">Photo → macros</span>
-          <span class="ai-chip">Scan étiquettes</span>
-          <span class="ai-chip">Suggestions repas</span>
-        </div>
-      </a>
-
-    </div>
   </div>
 
   <!-- PRIVACY -->
